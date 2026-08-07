@@ -119,7 +119,7 @@ actions:
 
 comments:
   # Global switch for the post-comment system. Keeping it empty means disabled.
-  provider: giscus # [disqus | utterances | giscus]
+  provider: # [disqus | utterances | giscus] — 전시용 블로그라 댓글 기능은 사용하지 않음
   # The provider options are as follows:
   disqus:
     shortname: # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
@@ -129,10 +129,10 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: dlwldP/dlwldP.github.io # <gh-username>/<repo>
-    repo_id: # TODO: fill in after enabling Discussions & installing the giscus app (see README)
-    category: General
-    category_id: # TODO: fill in after enabling Discussions & installing the giscus app (see README)
+    repo: # <gh-username>/<repo>
+    repo_id:
+    category:
+    category_id:
     mapping: # optional, default to 'pathname'
     strict: # optional, default to '0'
     input_position: # optional, default to 'bottom'
@@ -187,7 +187,7 @@ defaults:
       type: posts
     values:
       layout: post
-      comments: true # Enable comments in posts.
+      comments: false # 전시용 블로그: 댓글 기능 사용 안 함
       toc: true # Display TOC column in posts.
       # DO NOT modify the following parameter unless you are confident enough
       # to update the code of all other post links in this project.
