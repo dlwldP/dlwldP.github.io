@@ -4,7 +4,7 @@
 
 layout:
   post: 포스트
-  category: 카테고리
+  category: 기술블로그
   tag: 태그
 
 # The tabs of sidebar
