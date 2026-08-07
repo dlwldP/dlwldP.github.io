@@ -1,71 +1,6 @@
 # 홈 화면과 프로젝트 페이지에서 함께 사용하는 프로젝트 목록입니다.
 # featured: true 인 항목이 홈 화면에 노출됩니다. 최신순으로 정렬해 주세요.
 
-- name: Tune Share Hub
-  subtitle: 플레이리스트 공유 플랫폼
-  period: 2026.05
-  role: 팀 프로젝트 · 백엔드 단독
-  featured: true
-  accent: indigo
-  summary: >-
-    Spring Boot 기반 음악 플레이리스트 공유 서비스의 백엔드를 단독으로 개발했습니다.
-    REST API 설계부터 Spring AI를 이용한 챗봇 기능 통합까지 진행했습니다.
-  stack: [Spring Boot, MyBatis, MySQL, Spring AI, Bootstrap 5]
-  links:
-    - label: GitHub
-      icon: fab fa-github
-      url: https://github.com/orgs/kosa-2026-1/repositories
-  details:
-    - heading: 구현한 기능
-      items:
-        - 플레이리스트 CRUD, 트랙 관리, 댓글·좋아요 REST API 설계 및 구현
-        - 조회수 집계 및 인기 플레이리스트 랭킹 로직 구현
-        - MyBatis DAO 패턴 적용 (XML Mapper 기반 쿼리 분리)
-        - 커스텀 예외 처리 구조 설계로 비즈니스 예외 일관성 확보
-        - JWT 인증 인터셉터로 인증 처리 일원화
-    - heading: AI 연동
-      items:
-        - Spring AI 기반 챗봇 UI 통합, 스트리밍 응답 처리로 UX 개선
-        - 프롬프트 엔지니어링 기법 적용 (zero-shot / few-shot / CoT)
-    - heading: 문제 해결
-      items:
-        - MyBatis resultMap 매핑 불일치로 발생한 쿼리 오류를 디버깅해 원인 규명 및 수정
-
-- name: 보험 보장 분석 데모
-  subtitle: LLM 기반 소명 근거 자동 생성
-  period: 2026.02
-  role: 개인 프로젝트
-  featured: true
-  accent: violet
-  summary: >-
-    보험 지급 거절 통보서를 업로드하면 약관을 근거로 소명 가능성과 반박 논리를 자동 생성하는
-    AI 프로토타입입니다. 문제 정의부터 기획, 개발까지 전 과정을 단독으로 진행했습니다.
-  stack: [Next.js, TypeScript, Tailwind CSS, Claude API]
-  links:
-    - label: GitHub
-      icon: fab fa-github
-      url: https://github.com/dlwldP/banksalad
-  details:
-    - heading: 문제 정의
-      items:
-        - 보험 약관의 복잡성 때문에 지급 거절 시 대부분의 고객이 소명을 포기하는 문제에 주목
-        - 거절 통보서 한 장으로 약관 역산 → 소명 근거 도출 → 메시지 생성 3단계를 자동화
-    - heading: 주요 기능
-      items:
-        - PDF 드래그앤드롭 업로드 후 거절 통보서 자동 분석
-        - 보험사·진단명·청구 금액·거절 사유를 카드 형태로 시각화
-        - 약관 논리 기반 소명 성공률 예측 및 핵심 반박 근거 자동 추출
-        - 소명 편지 자동 작성 및 복사 기능
-    - heading: 기술적 선택
-      items:
-        - OCR 없이 PDF를 base64로 인코딩해 모델에 직접 전달, 약관 원문 전체를 분석에 활용
-        - 시스템 프롬프트로 JSON 구조화 출력을 강제해 프론트엔드에서 바로 파싱
-        - API 키를 서버 라우트에서만 처리해 브라우저에 노출되지 않도록 설계
-    - heading: 한계
-      items:
-        - 법적 효력이 있는 소명 자료가 아닌 시연 목적의 프로토타입
-        - 진료 기록과 결합한 손해사정 리포트 기능은 확장 과제로 남김
-
 - name: BangCheck
   subtitle: 자취방 계약 체크리스트 서비스
   period: 2026.03 – 2026.05
@@ -119,46 +54,37 @@
         - KubeVirt GPU passthrough 구조와 Kubernetes Extended Resource 개념 학습
         - 짧은 기간 내 낯선 기술 스택을 습득해 실무에 적용
 
-- name: EKS 기반 중고거래 인프라
-  subtitle: 3-tier 클라우드 아키텍처 구축
-  period: 2024
-  role: 팀 프로젝트 · Architecting / Monitoring
-  featured: false
-  accent: amber
+- name: 보험 보장 분석 데모
+  subtitle: LLM 기반 소명 근거 자동 생성
+  period: 2026.02
+  role: 개인 프로젝트
+  featured: true
+  accent: violet
   summary: >-
-    가상 고객사 시나리오를 기반으로, 중고거래 서비스를 위한 AWS EKS 기반
-    3-tier 인프라를 설계하고 구축한 클라우드 교육 프로젝트입니다.
-  stack: [AWS EKS, RDS Aurora, CloudFront, Kubernetes, Prometheus, Grafana]
-  details:
-    - heading: 요구사항 대응
-      items:
-        - 안정성·비용 — RDS Aurora 전환 및 가용영역 확장으로 트래픽 급증 시 지연 해결
-        - 운영 자동화 — EKS 기반 컨테이너 오케스트레이션으로 수동 확장·배포 부담 제거
-        - 보안·모니터링 — WAF로 외부 공격 차단, Prometheus/Grafana로 이상 징후 감지
-    - heading: 구현 내용
-      items:
-        - 3개 가용영역에 Public/Private/DB 서브넷 구성, Bastion Host 경유 접근
-        - IAM 그룹별 권한 분리 및 CloudTrail·Inspector 기반 보안 점검 체계 구축
-        - Prometheus + Grafana Helm 배포로 클러스터 모니터링 대시보드 구성
-
-- name: ColorGlow
-  subtitle: 딥러닝 퍼스널 컬러 진단 앱
-  period: 2024.03 – 2024.05
-  role: 팀 프로젝트 · Android
-  featured: false
-  accent: rose
-  summary: >-
-    얼굴 사진을 CNN으로 분석해 퍼스널 컬러를 진단하고 맞춤 화장품을 추천하는
-    Android 앱입니다. 교내 캡스톤 디자인 프로젝트로 진행했습니다.
-  stack: [Kotlin, Node.js, TensorFlow, Firebase]
+    보험 지급 거절 통보서를 업로드하면 약관을 근거로 소명 가능성과 반박 논리를 자동 생성하는
+    AI 프로토타입입니다. 문제 정의부터 기획, 개발까지 전 과정을 단독으로 진행했습니다.
+  stack: [Next.js, TypeScript, Tailwind CSS, Claude API]
   links:
     - label: GitHub
       icon: fab fa-github
-      url: https://github.com/dlwldP/Capstone2024
+      url: https://github.com/dlwldP/banksalad
   details:
-    - heading: 구현 내용
+    - heading: 문제 정의
       items:
-        - CNN 모델로 얼굴 이미지를 12가지 퍼스널 컬러 유형으로 분류 (Validation Accuracy 91.67%)
-        - 이미지 약 13만 장을 크롤링·전처리해 6만 장 규모의 학습 데이터셋 구축
-        - 진단 결과 기반 화장품 추천, 진단 이력 관리, 커뮤니티 기능 구현
-        - Firebase 기반 데이터 저장 및 인증 처리
+        - 보험 약관의 복잡성 때문에 지급 거절 시 대부분의 고객이 소명을 포기하는 문제에 주목
+        - 거절 통보서 한 장으로 약관 역산 → 소명 근거 도출 → 메시지 생성 3단계를 자동화
+    - heading: 주요 기능
+      items:
+        - PDF 드래그앤드롭 업로드 후 거절 통보서 자동 분석
+        - 보험사·진단명·청구 금액·거절 사유를 카드 형태로 시각화
+        - 약관 논리 기반 소명 성공률 예측 및 핵심 반박 근거 자동 추출
+        - 소명 편지 자동 작성 및 복사 기능
+    - heading: 기술적 선택
+      items:
+        - OCR 없이 PDF를 base64로 인코딩해 모델에 직접 전달, 약관 원문 전체를 분석에 활용
+        - 시스템 프롬프트로 JSON 구조화 출력을 강제해 프론트엔드에서 바로 파싱
+        - API 키를 서버 라우트에서만 처리해 브라우저에 노출되지 않도록 설계
+    - heading: 한계
+      items:
+        - 법적 효력이 있는 소명 자료가 아닌 시연 목적의 프로토타입
+        - 진료 기록과 결합한 손해사정 리포트 기능은 확장 과제로 남김
