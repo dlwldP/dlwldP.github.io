@@ -1,0 +1,51 @@
+{% comment %}
+  프로젝트 카드. compact=true 이면 상세 내용 없이 요약만 보여줍니다(홈 화면용).
+  사용: {% include project-card.html project=project compact=true %}
+{% endcomment %}
+
+{% assign project = include.project %}
+
+<article class="prj prj--{{ project.accent | default: 'indigo' }}">
+  <div class="prj__head">
+    <div class="prj__titles">
+      <h3 class="prj__name">{{ project.name }}</h3>
+      {% if project.subtitle %}<p class="prj__sub">{{ project.subtitle }}</p>{% endif %}
+    </div>
+    <span class="prj__period">{{ project.period }}</span>
+  </div>
+
+  <p class="prj__role">{{ project.role }}</p>
+  <p class="prj__summary">{{ project.summary }}</p>
+
+  {% if project.stack %}
+    <ul class="prj__stack">
+      {% for tech in project.stack %}<li>{{ tech }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if project.links %}
+    <div class="prj__links">
+      {% for link in project.links %}
+        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+          {% if link.icon %}<i class="{{ link.icon }}"></i>{% endif %}{{ link.label }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% unless include.compact %}
+    {% if project.details %}
+      <details class="prj__details">
+        <summary>자세히 보기</summary>
+        <div class="prj__details-body">
+          {% for section in project.details %}
+            <h4>{{ section.heading }}</h4>
+            <ul>
+              {% for item in section.items %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          {% endfor %}
+        </div>
+      </details>
+    {% endif %}
+  {% endunless %}
+</article>

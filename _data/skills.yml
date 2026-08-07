@@ -1,0 +1,21 @@
+# About 페이지와 홈 화면의 기술 스택 섹션에서 함께 사용합니다.
+
+- group: Backend
+  icon: fas fa-server
+  items: [Java, Spring Boot, Python]
+
+- group: Database
+  icon: fas fa-database
+  items: [MySQL, MariaDB, Oracle]
+
+- group: Cloud / Infra
+  icon: fas fa-cloud
+  items: [AWS, Docker, Kubernetes, Linux]
+
+- group: Frontend
+  icon: fas fa-code
+  items: [React, TypeScript]
+
+- group: 협업 / 문서화
+  icon: fas fa-users
+  items: [Git, Jira, Confluence, Notion]

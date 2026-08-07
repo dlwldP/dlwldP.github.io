@@ -1,0 +1,66 @@
+<!-- The Top Bar — 데스크톱에서는 사이트 전체 내비게이션 역할을 합니다. -->
+
+<header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar">
+  <div
+    id="topbar"
+    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
+  >
+    <button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar">
+      <i class="fas fa-bars fa-fw"></i>
+    </button>
+
+    <!-- 데스크톱 내비게이션 -->
+    <div class="topnav">
+      <a class="topnav__brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+
+      <nav class="topnav__menu" aria-label="Main Navigation">
+        <a
+          href="{{ '/' | relative_url }}"
+          class="topnav__link{% if page.layout == 'home' %} active{% endif %}"
+        >
+          {{- site.data.locales[include.lang].tabs.home | capitalize -}}
+        </a>
+
+        {% for tab in site.tabs %}
+          <a
+            href="{{ tab.url | relative_url }}"
+            class="topnav__link{% if tab.url == page.url %} active{% endif %}"
+          >
+            {%- capture tab_key %}{{ tab.url | split: '/' }}{% endcapture -%}
+            {{- site.data.locales[include.lang].tabs[tab_key] | default: tab.title -}}
+          </a>
+        {% endfor %}
+      </nav>
+    </div>
+
+    <div id="topbar-title">
+      {% if page.layout == 'home' %}
+        {{- site.data.locales[include.lang].title | default: site.title -}}
+      {% elsif page.collection == 'tabs' or page.layout == 'page' %}
+        {%- capture tab_key -%}{{ page.url | split: '/' }}{%- endcapture -%}
+        {{- site.data.locales[include.lang].tabs[tab_key] | default: page.title -}}
+      {% else %}
+        {{- site.data.locales[include.lang].layout[page.layout] | default: page.layout | capitalize -}}
+      {% endif %}
+    </div>
+
+    <button type="button" id="search-trigger" class="btn btn-link" aria-label="Search">
+      <i class="fas fa-search fa-fw"></i>
+    </button>
+
+    <search id="search" class="align-items-center ms-3 ms-lg-0">
+      <i class="fas fa-search fa-fw"></i>
+      <input
+        class="form-control"
+        id="search-input"
+        type="search"
+        aria-label="search"
+        autocomplete="off"
+        placeholder="{{ site.data.locales[include.lang].search.hint | capitalize }}..."
+      >
+    </search>
+    <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">
+      {{- site.data.locales[include.lang].search.cancel -}}
+    </button>
+  </div>
+</header>
