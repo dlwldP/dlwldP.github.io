@@ -4,9 +4,8 @@
 
 ## 배포 전 설정 (한 번만 해주세요)
 
-1. **GitHub Pages 소스 변경**
-   저장소 `Settings > Pages`에서 Source를 **"GitHub Actions"** 로 변경해주세요. (기본값인 "Deploy from a branch"로는 이 테마가 빌드되지 않습니다.)
-   변경 후 `main` 브랜치에 push하면 `.github/workflows/pages-deploy.yml` 워크플로우가 자동으로 빌드/배포합니다.
+1. ~~**GitHub Pages 소스 변경**~~ ✅ 완료
+   저장소 `Settings > Pages`에서 Source를 **"GitHub Actions"** 로 변경 완료. `main` 브랜치에 push하면 `.github/workflows/pages-deploy.yml` 워크플로우가 자동으로 빌드/배포합니다.
 
 2. **댓글(giscus) 활성화**
    - 저장소 `Settings > General > Features`에서 **Discussions**를 켜주세요.
