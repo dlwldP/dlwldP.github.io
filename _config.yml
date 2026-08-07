@@ -16,10 +16,10 @@ timezone: Asia/Seoul
 
 title: dlwldP # the main title
 
-tagline: 개발하며 배운 것들을 기록하는 기술 블로그 # it will display as the subtitle
+tagline: 백엔드 · 클라우드 인프라 개발자의 기술 블로그 & 포트폴리오 # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  velog을 대신할 개인 기술 블로그입니다. 개발하며 겪은 문제와 해결 과정을 기록합니다.
+  백엔드와 클라우드 인프라를 다루는 개발자의 기술 블로그이자 포트폴리오입니다. 프로젝트 기록과 학습 내용을 정리합니다.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -35,7 +35,7 @@ social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: dlwldP
-  email: jiye7961@gmail.com # change to your email address
+  email: # 개인정보 보호를 위해 비워둠 (연락은 GitHub을 이용해주세요)
   fediverse_handle: # fill in your fediverse handle. E.g. "@username@domain.com"
   links:
     # The first element serves as the copyright owner's link
