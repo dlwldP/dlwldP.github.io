@@ -10,19 +10,23 @@
     </button>
 
     <!-- 데스크톱 내비게이션 -->
+    {% assign visible_tabs = site.tabs | where_exp: 'tab', 'tab.hidden != true' %}
     <div class="topnav">
       <a class="topnav__brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
-      <nav class="topnav__menu" aria-label="Main Navigation">
-        <a
-          href="{{ '/' | relative_url }}"
-          class="topnav__link{% if page.layout == 'home' %} active{% endif %}"
-        >
-          {{- site.data.locales[include.lang].tabs.home | capitalize -}}
-        </a>
+      {% comment %}
+        탭이 없으면 '홈' 링크는 브랜드 링크와 중복이므로 메뉴 자체를 그리지 않습니다.
+      {% endcomment %}
+      {% if visible_tabs.size > 0 %}
+        <nav class="topnav__menu" aria-label="Main Navigation">
+          <a
+            href="{{ '/' | relative_url }}"
+            class="topnav__link{% if page.layout == 'home' %} active{% endif %}"
+          >
+            {{- site.data.locales[include.lang].tabs.home | capitalize -}}
+          </a>
 
-        {% for tab in site.tabs %}
-          {% unless tab.hidden %}
+          {% for tab in visible_tabs %}
             <a
               href="{{ tab.url | relative_url }}"
               class="topnav__link{% if tab.url == page.url %} active{% endif %}"
@@ -30,9 +34,9 @@
               {%- capture tab_key %}{{ tab.url | split: '/' }}{% endcapture -%}
               {{- site.data.locales[include.lang].tabs[tab_key] | default: tab.title -}}
             </a>
-          {% endunless %}
-        {% endfor %}
-      </nav>
+          {% endfor %}
+        </nav>
+      {% endif %}
     </div>
 
     <div id="topbar-title">
