@@ -30,15 +30,15 @@
         - OAuth2 + JWT 인증 흐름 설계부터 실제 배포까지 전 과정 경험
         - 브랜치 전략·PR 컨벤션 등 팀 협업 규칙을 제안하고 적용
 
-- name: 유연의료 플랫폼
-  subtitle: 정부 R&D 과제
+- name: 정부 R&D 과제
+  subtitle: 의료 플랫폼 일부 기능 개발
   period: 2025.07 – 2026.01
-  role: 인턴 개발자 · 프론트 / 인프라 / AI 백엔드
+  role: 인턴 개발자 · 담당 기능 개발
   featured: true
   accent: blue
   summary: >-
-    정부 R&D 과제로 운영 중인 의료 플랫폼에서, 확정된 기능 명세를 기반으로
-    프론트엔드부터 인프라 백엔드까지 전 파트를 구현했습니다.
+    정부 R&D 과제로 운영 중인 의료 플랫폼에서, 확정된 기능 명세 중
+    SW 가상 로깅 화면과 일부 인프라 연동 기능을 담당해 구현했습니다.
   stack: [React, TypeScript, Spring Boot, Kubernetes, KubeVirt, Harbor]
   details:
     - heading: SW 가상 로깅 화면
