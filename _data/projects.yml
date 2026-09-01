@@ -88,3 +88,33 @@
       items:
         - 법적 효력이 있는 소명 자료가 아닌 시연 목적의 프로토타입
         - 진료 기록과 결합한 손해사정 리포트 기능은 확장 과제로 남김
+
+- name: stock-monitor
+  subtitle: 증권사 Open API 연동 관심종목 알림 · 자산 대시보드
+  period: 2026.08
+  role: 개인 프로젝트
+  featured: true
+  accent: amber
+  summary: >-
+    토스증권 Open API를 연동해 관심종목 알림과 자산 대시보드를 한 서비스로 제공하는 백엔드 중심 프로젝트입니다.
+    실계좌 연동 동작까지 확인했고, API 키 없이도 Mock 시세로 전 기능이 동작하도록 설계했습니다.
+  stack: [Java 21, Spring Boot, Spring Data JPA, React, TypeScript, H2/MySQL]
+  links:
+    - label: GitHub
+      icon: fab fa-github
+      url: https://github.com/dlwldP/stock-monitor
+  details:
+    - heading: 주요 기능
+      items:
+        - 관심종목 시세·손익, 보유종목, 자산 추이를 한 화면에서 보여주는 대시보드 (일봉 캔들 차트 자체 SVG 렌더링)
+        - 목표가/등락률/거래량 급증/52주 신고가·신저가 등 6가지 조건의 알림 규칙, 디스코드·이메일·인앱 채널 발송
+        - 60초 주기 스케줄러로 알림 조건 평가, 매일 자산현황 요약을 보내는 다이제스트 이메일
+    - heading: 기술적 선택
+      items:
+        - TossApiClient 인터페이스로 Mock/실 API 구현체를 분리해, 키가 없어도 랜덤워크 가상 시세로 전 기능이 동작하도록 설계
+        - 문서화되지 않은 API 응답 구조를 직접 호출해 검증하고, 매핑을 회귀 테스트로 고정해 스키마 변경 시 조용히 깨지지 않도록 방지
+        - gzip 압축 에러 응답 처리, 타임존이 밀리는 캔들 타임스탬프를 문자열로 파싱하는 등 실 API 연동 과정의 예외 케이스 대응
+    - heading: 배운 점
+      items:
+        - 실계좌 연동까지 검증하며 외부 금융 API의 인증·에러 처리·레이트리밋 대응 경험
+        - 민감정보(키·계좌번호)를 레포에 커밋하지 않고 환경변수로만 주입하는 설계 원칙 적용
