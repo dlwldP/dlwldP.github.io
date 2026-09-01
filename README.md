@@ -1,6 +1,4 @@
-# dlwldP.github.io
-
-[Jekyll](https://jekyllrb.com/) + [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) 테마로 만든 기술 블로그 겸 포트폴리오입니다. 전시(display) 목적이라 댓글 기능은 사용하지 않습니다.
+## dlwldP.github.io
 
 ## 배포 설정
 
