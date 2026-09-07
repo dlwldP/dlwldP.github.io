@@ -12,7 +12,7 @@ layout: default
   </h1>
   <p class="hero__desc">
     클라우드 기반 인프라와 백엔드 개발을 함께 다룹니다.
-    API 설계부터 컨테이너 인프라와 배포까지, 직접 만들고 운영하며 배운 것들을 기록합니다.
+    API 설계부터 컨테이너 인프라와 배포까지, 직접 만들고 운영한 프로젝트를 모았습니다.
   </p>
   <div class="hero__actions">
     <a class="btn-primary-soft" href="#projects">
@@ -48,15 +48,35 @@ layout: default
 <!-- ── Projects ───────────────────────────────────────────── -->
 {% assign featured = site.data.projects | where: 'featured', true %}
 {% if featured.size > 0 %}
+  {% assign personal = featured | where: 'type', 'personal' %}
+  {% assign team = featured | where: 'type', 'team' %}
+
   <section id="projects" class="section">
     <div class="section__head">
-      <h2 class="section__title">주요 프로젝트</h2>
+      <h2 class="section__title">프로젝트</h2>
     </div>
-    <div class="prj-grid">
-      {% for project in featured %}
-        {% include project-card.html project=project %}
-      {% endfor %}
-    </div>
+
+    {% if personal.size > 0 %}
+      <h3 class="prj-group">
+        개인 프로젝트 <span class="prj-group__count">{{ personal.size }}</span>
+      </h3>
+      <div class="prj-grid">
+        {% for project in personal %}
+          {% include project-card.html project=project %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if team.size > 0 %}
+      <h3 class="prj-group">
+        팀 프로젝트 <span class="prj-group__count">{{ team.size }}</span>
+      </h3>
+      <div class="prj-grid">
+        {% for project in team %}
+          {% include project-card.html project=project %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </section>
 {% endif %}
 
