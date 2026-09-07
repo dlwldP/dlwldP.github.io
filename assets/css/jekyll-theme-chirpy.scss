@@ -307,6 +307,30 @@
 
 /* ── 프로젝트 카드 ──────────────────────────────────────── */
 
+/* 개인 / 팀 그룹 구분 */
+.prj-group {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0 0 1.1rem;
+}
+
+.prj-grid + .prj-group {
+  margin-top: 2.75rem;
+}
+
+.prj-group__count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted-color);
+  background-color: var(--inline-code-bg);
+  border-radius: 1rem;
+  padding: 0.12rem 0.55rem;
+}
+
 /* align-items 기본값(stretch) 유지 — 같은 행 카드 높이를 맞춘다 */
 .prj-grid {
   display: grid;
@@ -349,6 +373,7 @@
 .prj--blue { --prj-accent: #3b82f6; }
 .prj--amber { --prj-accent: #d97706; }
 .prj--rose { --prj-accent: #f43f5e; }
+.prj--cyan { --prj-accent: #0891b2; }
 
 .prj__head {
   display: flex;

@@ -14,7 +14,10 @@
     <span class="prj__period">{{ project.period }}</span>
   </div>
 
-  <p class="prj__role">{{ project.role }}</p>
+  {% comment %}
+    역할 칩은 그룹 제목(개인/팀)이 알려주지 못하는 내용이 있을 때만 — 개인 프로젝트는 비워둔다.
+  {% endcomment %}
+  {% if project.role %}<p class="prj__role">{{ project.role }}</p>{% endif %}
   <p class="prj__summary">{{ project.summary }}</p>
 
   {% if project.stack %}
