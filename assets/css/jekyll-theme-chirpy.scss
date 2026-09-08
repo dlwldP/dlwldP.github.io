@@ -344,10 +344,15 @@
   padding: 0.15rem 0.62rem;
 }
 
-/* align-items 기본값(stretch) 유지 — 같은 행 카드 높이를 맞춘다 */
+/* align-items: start — 기본값(stretch)이면 카드가 grid row 높이를 꽉 채우므로,
+   한 카드에서 '자세히 보기'를 펼치면 그 행 자체가 늘어나면서 같은 행의
+   다른 카드도 내용 없이 카드 박스만 그 높이까지 늘어나 보인다(펼쳐진 것처럼
+   착시를 준다). 각 카드가 자기 콘텐츠 높이만큼만 차지하게 해서 한 카드를
+   펼쳐도 옆 카드는 전혀 움직이지 않도록 한다. */
 .prj-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  align-items: start;
   gap: 1.35rem;
 }
 
