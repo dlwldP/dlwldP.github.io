@@ -330,10 +330,6 @@
   background-color: color-mix(in srgb, var(--text-muted-color) 28%, transparent);
 }
 
-.prj-grid + .prj-group {
-  margin-top: 3.25rem;
-}
-
 .prj-group__count {
   flex: 0 0 auto;
   font-size: 0.8rem;
@@ -342,6 +338,150 @@
   background-color: var(--inline-code-bg);
   border-radius: 1rem;
   padding: 0.15rem 0.62rem;
+}
+
+/* 개인 프로젝트가 너무 많아지지 않도록 연도 → 월 순으로 접는 중첩 토글.
+   가장 최신 연도·월만 펼친 채로 시작한다(_layouts/home.html의 forloop.first). */
+.prj-years {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.prj-years + .prj-group {
+  margin-top: 3.25rem;
+}
+
+.prj-year {
+  background-color: var(--card-bg);
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+
+.prj-year__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.3rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.prj-year__summary:hover {
+  background-color: var(--card-hover-bg);
+}
+
+.prj-year__summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 토글 화살표 — .prj__details summary와 같은 CSS 전용 방식 */
+.prj-year__summary::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-bottom: 0.12rem;
+  border-right: 2px solid var(--text-muted-color);
+  border-bottom: 2px solid var(--text-muted-color);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.prj-year[open] > .prj-year__summary::before {
+  transform: rotate(-135deg);
+  margin-bottom: 0;
+}
+
+.prj-year__label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.prj-year__count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted-color);
+  background-color: var(--inline-code-bg);
+  border-radius: 1rem;
+  padding: 0.15rem 0.6rem;
+}
+
+.prj-year__body {
+  padding: 0 1.3rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.prj-month {
+  border-top: 1px solid var(--main-border-color);
+  padding-top: 1rem;
+}
+
+.prj-year__body > .prj-month:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.prj-month__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.1rem;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.prj-month__summary:hover {
+  color: var(--link-color);
+}
+
+.prj-month__summary:hover .prj-month__label {
+  color: var(--link-color);
+}
+
+.prj-month__summary::-webkit-details-marker {
+  display: none;
+}
+
+.prj-month__summary::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-bottom: 0.1rem;
+  border-right: 2px solid var(--text-muted-color);
+  border-bottom: 2px solid var(--text-muted-color);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.prj-month[open] > .prj-month__summary::before {
+  transform: rotate(-135deg);
+  margin-bottom: 0;
+}
+
+.prj-month__label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  transition: color 0.15s ease;
+}
+
+.prj-month__count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted-color);
+  background-color: var(--inline-code-bg);
+  border-radius: 1rem;
+  padding: 0.1rem 0.5rem;
 }
 
 /* align-items: start — 기본값(stretch)이면 카드가 grid row 높이를 꽉 채우므로,
@@ -676,5 +816,13 @@
 
   .prj {
     padding: 1.35rem 1.3rem;
+  }
+
+  .prj-year__summary {
+    padding: 0.9rem 1.1rem;
+  }
+
+  .prj-year__body {
+    padding: 0 1.1rem 1.1rem;
   }
 }

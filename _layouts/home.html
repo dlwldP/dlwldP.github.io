@@ -60,10 +60,61 @@ layout: default
       <h3 class="prj-group">
         개인 프로젝트 <span class="prj-group__count">{{ personal.size }}</span>
       </h3>
-      <div class="prj-grid">
+
+      {% comment %}
+        personal은 이미 최신순으로 정렬돼 있다고 전제한다(파일 코멘트 참고).
+        연도·월이 바뀔 때마다 details를 새로 열고 직전 details를 닫는 방식으로
+        중첩 토글을 만든다 — 맨 처음(가장 최신) 연도·월만 펼친 채로 시작해,
+        나머지는 접어서 "개인 프로젝트가 너무 많다"는 문제를 줄인다.
+      {% endcomment %}
+      <div class="prj-years">
+        {% assign prev_year = nil %}
+        {% assign prev_month = nil %}
         {% for project in personal %}
+          {% assign y = project.year %}
+          {% assign m = project.month %}
+
+          {% if y != prev_year %}
+            {% unless prev_year == nil %}
+                  </div>
+                </details>
+                </div>
+              </details>
+            {% endunless %}
+            {% assign year_items = personal | where: 'year', y %}
+            <details class="prj-year"{% if forloop.first %} open{% endif %}>
+              <summary class="prj-year__summary">
+                <span class="prj-year__label">{{ y }}년</span>
+                <span class="prj-year__count">{{ year_items.size }}</span>
+              </summary>
+              <div class="prj-year__body">
+            {% assign prev_year = y %}
+            {% assign prev_month = nil %}
+          {% endif %}
+
+          {% if m != prev_month %}
+            {% unless prev_month == nil %}
+                  </div>
+                </details>
+            {% endunless %}
+            {% assign month_items = personal | where: 'year', y | where: 'month', m %}
+                <details class="prj-month"{% if forloop.first %} open{% endif %}>
+                  <summary class="prj-month__summary">
+                    <span class="prj-month__label">{{ m }}월</span>
+                    <span class="prj-month__count">{{ month_items.size }}</span>
+                  </summary>
+                  <div class="prj-grid">
+            {% assign prev_month = m %}
+          {% endif %}
+
           {% include project-card.html project=project %}
         {% endfor %}
+        {% unless prev_year == nil %}
+                </div>
+              </details>
+              </div>
+            </details>
+        {% endunless %}
       </div>
     {% endif %}
 
