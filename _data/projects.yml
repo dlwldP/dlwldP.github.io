@@ -4,6 +4,42 @@
 # personal 항목은 year/month로 연도·월 토글 그룹을 묶습니다 — 기간이 범위(예: 2026.07 – 2026.08)면
 # 더 최근 쪽(끝) 달을 씁니다. 배열이 이미 최신순으로 정렬돼 있어야 토글이 올바르게 묶입니다.
 
+- name: AWS 얼마야? (Awscal)
+  subtitle: 초보자용 AWS 비용 계산기
+  period: "2026.10"
+  year: 2026
+  month: 10
+  type: personal
+  featured: true
+  accent: amber
+  summary: >-
+    "하고 싶은 것"을 고르면 필요한 AWS 구성안 2~3가지와 예상 월 비용을 비교해 주고,
+    쓸 서비스를 이미 안다면 직접 담아 합계를 계산할 수 있는 웹 계산기입니다.
+    AWS 계정이나 API 키 없이 쓸 수 있는 정적 사이트이고, 가격 데이터는 매주 자동으로 갱신됩니다.
+  stack: [JavaScript, HTML/CSS, Python, GitHub Actions, GitHub Pages]
+  links:
+    - label: 서비스 바로가기
+      icon: fas fa-arrow-up-right-from-square
+      url: https://dlwldp.github.io/Awscal/
+    - label: GitHub
+      icon: fab fa-github
+      url: https://github.com/dlwldP/Awscal
+  details:
+    - heading: 주요 기능
+      items:
+        - 구성 추천 — 템플릿 4종(정적 웹사이트·백엔드 웹앱·서버리스 API·개발용 단일 서버) × 규모 프리셋 3종 × 리전 2곳(서울·버지니아 북부)
+        - 항목별 금액과 "이 비용은 왜 나오나요?" 설명, 퍼블릭 IPv4·NAT Gateway·데이터 전송·Multi-AZ 등 숨은 비용 경고
+        - 직접 계산 — EC2·RDS·S3·Lambda·ECS Fargate 등 15종 서비스를 담아 사용 시간·Multi-AZ 옵션까지 반영해 합계 계산
+    - heading: 가격 데이터 파이프라인
+      items:
+        - AWS Price List Bulk API의 공개 CSV를 스트리밍으로 읽어 필요한 SKU만 추출(인증 불필요, 표준 라이브러리만 사용)
+        - GitHub Actions가 매주 월요일 가격을 다시 수집해 커밋·재배포하고, 항목 누락이나 단가가 애매하면 실패 처리해 기존 가격을 유지
+    - heading: 설계와 검증
+      items:
+        - 계산 엔진을 DOM과 분리하고 Node 내장 테스트 러너로 단위 테스트, 템플릿은 JSON만 수정하면 추가되도록 데이터 주도 구조로 설계
+        - 템플릿 × 프리셋 × 리전 × 구성안 48개 조합을 AWS 공식 계산기와 교차 검증하는 체크리스트(±10% 기준)를 자동 생성
+        - 빌드 없는 순수 HTML/CSS/JS 정적 사이트라 서버·운영비 없이 GitHub Pages로 배포
+
 - name: KubeLens
   subtitle: 자연어로 질의하는 Kubernetes 장애 진단 에이전트
   period: "2026.10"
