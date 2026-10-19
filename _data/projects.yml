@@ -3,15 +3,18 @@
 # 각 그룹 안에서는 최신 작업순으로 정렬해 주세요.
 # personal 항목은 year/month로 연도·월 토글 그룹을 묶습니다 — 기간이 범위(예: 2026.07 – 2026.08)면
 # 더 최근 쪽(끝) 달을 씁니다. 배열이 이미 최신순으로 정렬돼 있어야 토글이 올바르게 묶입니다.
+# rank: 1, 2, ... 를 준 personal 항목은 '대표 프로젝트'로 맨 위에 rank 순서대로 강조되고,
+# 연도·월 토글에서는 빠집니다. rank 1은 가로 전체 폭 카드로 그려집니다.
 
 - name: AWS 얼마야? (Awscal)
+  rank: 3
   subtitle: 초보자용 AWS 비용 계산기
   period: "2026.10"
   year: 2026
   month: 10
   type: personal
   featured: true
-  accent: amber
+  accent: violet
   summary: >-
     "하고 싶은 것"을 고르면 필요한 AWS 구성안 2~3가지와 예상 월 비용을 비교해 주고,
     쓸 서비스를 이미 안다면 직접 담아 합계를 계산할 수 있는 웹 계산기입니다.
@@ -41,6 +44,7 @@
         - 빌드 없는 순수 HTML/CSS/JS 정적 사이트라 서버·운영비 없이 GitHub Pages로 배포
 
 - name: KubeLens
+  rank: 2
   subtitle: 자연어로 질의하는 Kubernetes 장애 진단 에이전트
   period: "2026.10"
   year: 2026
@@ -112,6 +116,7 @@
         - 위젯과 앱 간 데이터 공유를 App Group 컨테이너의 SwiftData로 구현, 변경 시 WidgetCenter로 위젯을 갱신
 
 - name: 보안입찰 RFP 매칭
+  rank: 5
   subtitle: 요구사항 · 제품 스펙 갭분석 자동화
   period: 2026.09
   year: 2026
@@ -178,6 +183,7 @@
         - 스토리지 단가는 벤더별 표준 SSD 근사치를 설정값으로 사용
 
 - name: stock-monitor
+  rank: 1
   subtitle: 증권사 Open API 연동 관심종목 알림 · 자산 대시보드
   period: 2026.08
   year: 2026
@@ -210,6 +216,7 @@
         - 민감정보(키·계좌번호)를 레포에 커밋하지 않고 환경변수로만 주입하는 설계 원칙 적용
 
 - name: Deploy-gate
+  rank: 4
   subtitle: claims 기반 인프라 배포 승인 게이트
   period: 2026.07 – 2026.08
   year: 2026
