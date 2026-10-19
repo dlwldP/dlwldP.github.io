@@ -48,7 +48,9 @@ layout: default
 <!-- ── Projects ───────────────────────────────────────────── -->
 {% assign featured = site.data.projects | where: 'featured', true %}
 {% if featured.size > 0 %}
-  {% assign personal = featured | where: 'type', 'personal' %}
+  {% assign personal_all = featured | where: 'type', 'personal' %}
+  {% assign top = personal_all | where_exp: 'p', 'p.rank != nil' | sort: 'rank' %}
+  {% assign personal = personal_all | where_exp: 'p', 'p.rank == nil' %}
   {% assign team = featured | where: 'type', 'team' %}
 
   <section id="projects" class="section">
@@ -56,9 +58,20 @@ layout: default
       <h2 class="section__title">프로젝트</h2>
     </div>
 
+    {% if top.size > 0 %}
+      <h3 class="prj-group">
+        대표 프로젝트 <span class="prj-group__count">{{ top.size }}</span>
+      </h3>
+      <div class="prj-grid prj-grid--top">
+        {% for project in top %}
+          {% include project-card.html project=project rank=forloop.index %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
     {% if personal.size > 0 %}
       <h3 class="prj-group">
-        개인 프로젝트 <span class="prj-group__count">{{ personal.size }}</span>
+        {% if top.size > 0 %}그 외 {% endif %}개인 프로젝트 <span class="prj-group__count">{{ personal.size }}</span>
       </h3>
 
       {% comment %}

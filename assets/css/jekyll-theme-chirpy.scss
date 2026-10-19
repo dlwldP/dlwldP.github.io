@@ -535,6 +535,54 @@
 .prj--emerald { --prj-accent: #059669; }
 .prj--pink { --prj-accent: #db2777; }
 
+/* ── 대표 프로젝트(rank) 강조 ── */
+.prj-grid--top + .prj-group {
+  margin-top: 3.25rem;
+}
+
+.prj--top {
+  border-color: color-mix(in srgb, var(--prj-accent) 38%, var(--main-border-color));
+  box-shadow: 0 2px 14px color-mix(in srgb, var(--prj-accent) 10%, transparent);
+}
+
+.prj--top::before {
+  height: 5px;
+}
+
+.prj--top:hover {
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--prj-accent) 18%, transparent);
+}
+
+.prj--top-1 {
+  grid-column: 1 / -1;
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--prj-accent) 9%, transparent),
+    transparent 55%
+  );
+}
+
+.prj--top-1 .prj__name {
+  font-size: 1.45rem;
+}
+
+.prj__rank {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--prj-accent);
+  background-color: color-mix(in srgb, var(--prj-accent) 13%, transparent);
+  border-radius: 0.4rem;
+  padding: 0.18rem 0.55rem;
+  margin-bottom: 0.55rem;
+}
+
+.prj--top-1 .prj__rank {
+  color: #fff;
+  background-color: var(--prj-accent);
+}
+
 .prj__head {
   display: flex;
   align-items: flex-start;

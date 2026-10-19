@@ -5,9 +5,10 @@
 
 {% assign project = include.project %}
 
-<article class="prj prj--{{ project.accent | default: 'indigo' }}">
+<article class="prj prj--{{ project.accent | default: 'indigo' }}{% if include.rank %} prj--top{% if include.rank == 1 %} prj--top-1{% endif %}{% endif %}">
   <div class="prj__head">
     <div class="prj__titles">
+      {% if include.rank %}<span class="prj__rank">No.{{ include.rank }}</span>{% endif %}
       <h3 class="prj__name">{{ project.name }}</h3>
       {% if project.subtitle %}<p class="prj__sub">{{ project.subtitle }}</p>{% endif %}
     </div>
