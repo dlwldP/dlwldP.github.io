@@ -177,6 +177,41 @@
   margin: 0 0 2.25rem;
 }
 
+/* 핵심 숫자 — 데이터 파일 개수로 계산되므로 항목을 추가하면 자동으로 바뀐다 */
+.hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: -0.75rem 0 2.25rem;
+}
+
+.hero__stats a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border-radius: 0.65rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--main-border-color);
+  color: var(--text-muted-color) !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: border-color 0.15s ease;
+}
+
+.hero__stats a:hover {
+  border-color: var(--link-color);
+  text-decoration: none;
+}
+
+.hero__stats strong {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--heading-color);
+}
+
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -223,6 +258,61 @@
 
 .section {
   margin-bottom: 4.75rem;
+  scroll-margin-top: 4.5rem; /* 상단 고정 바에 섹션 제목이 가리지 않도록 */
+}
+
+.section__lead {
+  font-size: 0.95rem;
+  color: var(--text-muted-color);
+  margin: -0.75rem 0 1.25rem;
+}
+
+/* ── 업무 도메인 ────────────────────────────────────────── */
+
+.domains {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.domains__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.8rem;
+}
+
+.domains__item > i {
+  flex: 0 0 2.1rem;
+  height: 2.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.55rem;
+  font-size: 0.95rem;
+  color: var(--link-color);
+  background-color: color-mix(in srgb, var(--link-color) 11%, transparent);
+}
+
+.domains__name {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0.1rem 0 0.2rem;
+}
+
+.domains__basis {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-muted-color);
+  margin: 0;
+  word-break: keep-all;
 }
 
 .section__head {
@@ -832,6 +922,17 @@
   margin: 1.25rem 0 0.5rem;
 }
 
+/* "설계 — 보안"의 구분어 부분 — 공통 소제목(설계)이 먼저 읽히도록 흐리게 */
+.prj__details-sub {
+  font-weight: 500;
+  color: var(--text-muted-color);
+}
+
+.prj__details-sub::before {
+  content: '·';
+  margin: 0 0.4rem;
+}
+
 .prj__details-body ul {
   margin: 0;
   padding-left: 1.15rem;
@@ -997,5 +1098,125 @@
     justify-self: start;
     justify-content: flex-start;
     margin-top: 0.35rem;
+  }
+}
+
+/* ── 인쇄 · PDF 저장 ────────────────────────────────────── */
+/* 접힌 토글은 home.html의 beforeprint 스크립트가 모두 펼친다 */
+
+@media print {
+  @page {
+    margin: 14mm 12mm;
+  }
+
+  /* 다크 모드에서 인쇄해도 흰 바탕·어두운 글자로 */
+  html:root,
+  html:root[data-bs-theme] {
+    --main-bg: #fff;
+    --card-bg: #fff;
+    --text-color: #2a2a2a;
+    --heading-color: #111;
+    --text-muted-color: #5f6368;
+    --main-border-color: #d9d9d9;
+    --inline-code-bg: #f1f3f4;
+    --link-color: #1a56db;
+    color-scheme: light;
+  }
+
+  body {
+    background: #fff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #sidebar,
+  #topbar-wrapper,
+  #panel-wrapper,
+  #back-to-top,
+  #mask,
+  #tail-wrapper > footer,
+  .hero__actions,
+  .hero__stats,
+  .prj__details > summary {
+    display: none !important;
+  }
+
+  #main-wrapper {
+    margin-left: 0 !important;
+  }
+
+  #main-wrapper > .container {
+    max-width: 100% !important;
+  }
+
+  .hero {
+    padding: 0 0 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .section__head,
+  .section__lead,
+  .prj-group,
+  .prj__head,
+  .prj__details-body h4,
+  .about__subtitle {
+    break-after: avoid;
+  }
+
+  .prj,
+  .prj-year,
+  .domains__item,
+  .skills {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .domains__item,
+  .skills__group,
+  .about__item,
+  .prj__details-body li {
+    break-inside: avoid;
+  }
+
+  /* 아이콘 버튼은 종이에서 누를 수 없으니 이름과 주소를 글자로 */
+  .prj__links {
+    display: block;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .prj__links a,
+  .prj__links a.prj__link-text {
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted-color) !important;
+  }
+
+  .prj__links a i {
+    display: none;
+  }
+
+  .prj__links a::after {
+    content: attr(title) ' ' attr(href);
+  }
+
+  .prj__links a.prj__link-text::after {
+    content: ' ' attr(href);
+  }
+
+  .about__links a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: var(--text-muted-color);
   }
 }

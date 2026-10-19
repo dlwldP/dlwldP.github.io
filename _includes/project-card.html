@@ -46,7 +46,8 @@
         <summary>자세히 보기</summary>
         <div class="prj__details-body">
           {% for section in project.details %}
-            <h4>{{ section.heading }}</h4>
+            {% assign hparts = section.heading | split: ' — ' %}
+            <h4>{{ hparts[0] }}{% if hparts[1] %}<span class="prj__details-sub">{{ hparts[1] }}</span>{% endif %}</h4>
             <ul>
               {% for item in section.items %}<li>{{ item }}</li>{% endfor %}
             </ul>
