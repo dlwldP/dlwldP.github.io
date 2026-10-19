@@ -1,0 +1,30 @@
+# 홈 화면 '업무 도메인' 섹션. 실제 경력·프로젝트로 다뤄 본 업종만 적고,
+# basis에는 그 근거가 된 경력·프로젝트 이름을 적습니다.
+
+- name: 의료
+  icon: fas fa-notes-medical
+  basis: [정부 R&D 의료 플랫폼 (인턴)]
+
+- name: 금융 · 보험
+  icon: fas fa-shield-heart
+  basis: [금융 솔루션 전문가 (경력), 보험 보장 분석 데모]
+
+- name: 증권
+  icon: fas fa-chart-line
+  basis: [stock-monitor]
+
+- name: 공공 조달
+  icon: fas fa-landmark
+  basis: [보안입찰 RFP 매칭]
+
+- name: ERP · 사내 인프라
+  icon: fas fa-industry
+  basis: [CANIAS ERP 개발 · VDI 운영 (현재 업무)]
+
+- name: 클라우드 비용
+  icon: fas fa-cloud
+  basis: [AWS 얼마야?, 멀티클라우드 견적 자동화]
+
+- name: 부동산 · 주거
+  icon: fas fa-house
+  basis: [BangCheck]
