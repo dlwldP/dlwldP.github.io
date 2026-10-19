@@ -223,7 +223,7 @@
   month: 8
   type: personal
   featured: true
-  accent: rose
+  accent: emerald
   summary: >-
     CI/CD 파이프라인에서 배포 직전에 호출되어, 요청자가 해당 인프라 스택을 배포할 권한이 있는지
     판단하는 인가 서비스입니다. 저장소 write 권한만으로는 구분되지 않는 "이 스택을 배포해도 되는가"를

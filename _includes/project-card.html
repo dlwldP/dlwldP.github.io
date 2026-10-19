@@ -13,6 +13,19 @@
       {% if project.subtitle %}<p class="prj__sub">{{ project.subtitle }}</p>{% endif %}
     </div>
     <span class="prj__period">{{ project.period }}</span>
+    {% if project.links %}
+      <div class="prj__links">
+        {% for link in project.links %}
+          {% if link.icon %}
+            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" title="{{ link.label }}" aria-label="{{ link.label }}">
+              <i class="{{ link.icon }}" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <a class="prj__link-text" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 
   {% comment %}
@@ -25,16 +38,6 @@
     <ul class="prj__stack">
       {% for tech in project.stack %}<li>{{ tech }}</li>{% endfor %}
     </ul>
-  {% endif %}
-
-  {% if project.links %}
-    <div class="prj__links">
-      {% for link in project.links %}
-        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
-          {% if link.icon %}<i class="{{ link.icon }}"></i>{% endif %}{{ link.label }}
-        </a>
-      {% endfor %}
-    </div>
   {% endif %}
 
   {% unless include.compact %}
