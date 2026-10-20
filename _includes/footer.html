@@ -1,0 +1,26 @@
+<!-- The Footer — 테마 기본(Powered by …) 대신 연락처 중심 -->
+
+<footer aria-label="Site Info" class="site-footer">
+  <p class="site-footer__copy">
+    © <time>{{ 'now' | date: '%Y' }}</time> {{ site.social.name }}
+  </p>
+  <ul class="site-footer__links">
+    {% if site.social.email %}
+      <li>
+        <a href="mailto:{{ site.social.email }}" aria-label="이메일" title="이메일">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+        </a>
+      </li>
+    {% endif %}
+    <li>
+      <a href="https://github.com/{{ site.github.username }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li>
+      <a href="https://velog.io/@jiye_1124/posts" target="_blank" rel="noopener noreferrer" aria-label="기술 블로그 (velog)" title="기술 블로그 (velog)">
+        <i class="fas fa-blog" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</footer>

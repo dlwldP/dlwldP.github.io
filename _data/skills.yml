@@ -1,6 +1,8 @@
-# About 페이지와 홈 화면의 기술 스택 섹션에서 함께 사용합니다.
+# 홈 화면 기술 스택 섹션에서 사용합니다.
+# hero: true 인 그룹은 첫 화면 오른쪽 요약 카드의 '주력 기술'에도 표시됩니다.
 
 - group: Backend
+  hero: true
   icon: fas fa-server
   items: [Java, Spring Boot, Python]
 
@@ -9,6 +11,7 @@
   items: [MySQL, MariaDB, Oracle]
 
 - group: Cloud / Infra
+  hero: true
   icon: fas fa-cloud
   items: [AWS, Docker, Kubernetes, Linux]
 
