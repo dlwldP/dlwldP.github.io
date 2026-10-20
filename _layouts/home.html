@@ -136,6 +136,17 @@ layout: default
       </h3>
 
       {% comment %}
+        몇 개 안 될 때는 토글 없이 한 줄 카드로 바로 보여 주고(월마다 카드 1장씩 여닫는 구조를 피함),
+        개수가 늘어나면 자동으로 연도·월 토글로 접는다.
+      {% endcomment %}
+      {% if personal.size <= 4 %}
+        <div class="prj-grid prj-grid--equal prj-grid--compact">
+          {% for project in personal %}
+            {% include project-card.html project=project %}
+          {% endfor %}
+        </div>
+      {% else %}
+      {% comment %}
         personal은 이미 최신순으로 정렬돼 있다고 전제한다(파일 코멘트 참고).
         연도·월이 바뀔 때마다 details를 새로 열고 직전 details를 닫는 방식으로
         중첩 토글을 만든다 — 맨 처음(가장 최신) 연도·월만 펼친 채로 시작해,
@@ -190,13 +201,14 @@ layout: default
             </details>
         {% endunless %}
       </div>
+      {% endif %}
     {% endif %}
 
     {% if team.size > 0 %}
       <h3 class="prj-group">
         팀 프로젝트 <span class="prj-group__count">{{ team.size }}</span>
       </h3>
-      <div class="prj-grid">
+      <div class="prj-grid prj-grid--equal">
         {% for project in team %}
           {% include project-card.html project=project %}
         {% endfor %}
@@ -211,15 +223,11 @@ layout: default
     <h2 class="section__title">정보</h2>
   </div>
   <div class="about">
-    <p class="about__intro">
-      클라우드 기반 인프라와 백엔드 개발을 함께 다루는 개발자입니다.
-      서버부터 배포 인프라까지, 서비스가 실제로 동작하는 전체 흐름을 이해하고 만드는 데 관심이 많습니다.
-    </p>
-
     <div class="about__grid">
       <div class="about__career">
         <h3 class="about__subtitle">경력</h3>
-        {% for job in site.data.career %}
+        {% assign career_desc = site.data.career | reverse %}
+        {% for job in career_desc %}
           <div class="about__item">
             <p class="about__role">{{ job.role }} · {{ job.period }}</p>
             <ul>
@@ -287,6 +295,7 @@ layout: default
       .filter(Boolean);
     if (!sections.length) return;
     var ticking = false;
+    var last;
 
     function update() {
       ticking = false;
@@ -297,11 +306,21 @@ layout: default
         if (sec.getBoundingClientRect().top <= line) current = sec.id;
       });
       if (atBottom) current = sections[sections.length - 1].id;
+      if (current === last) return;
+      last = current;
       links.forEach(function (a) {
         var on = a.dataset.section === current;
         a.classList.toggle('active', on);
-        if (on) a.setAttribute('aria-current', 'true');
-        else a.removeAttribute('aria-current');
+        if (on) {
+          a.setAttribute('aria-current', 'true');
+          /* 모바일 가로 탭: 현재 탭이 가려져 있으면 보이도록 옆으로 스크롤 */
+          var menu = a.parentNode;
+          if (menu.scrollWidth > menu.clientWidth) {
+            menu.scrollTo({ left: a.offsetLeft - 12, behavior: 'smooth' });
+          }
+        } else {
+          a.removeAttribute('aria-current');
+        }
       });
     }
 
@@ -323,7 +342,7 @@ layout: default
 
     var targets = document.querySelectorAll(
       '.section__head, .section__lead, .skills, .domains__item, .prj-group, ' +
-      '.prj-grid > .prj, .prj-year, .about__intro, .about__item, .contact-card'
+      '.prj-grid > .prj, .prj-year, .about__item, .contact-card'
     );
     document.documentElement.classList.add('js-reveal');
 
