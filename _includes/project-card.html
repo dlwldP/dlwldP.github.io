@@ -38,6 +38,31 @@
   {% if project.role %}<p class="prj__role">{{ project.role }}</p>{% endif %}
   <p class="prj__summary">{{ project.summary }}</p>
 
+  {% comment %} 운영 지표(선택) — 값이 하나도 없으면 '수집 중' 상태(점선 테두리)로 그린다 {% endcomment %}
+  {% if project.metrics %}
+    {% assign m = project.metrics %}
+    {% assign filled = m.items | where_exp: 'i', 'i.value' %}
+    <div class="prj__metrics{% if filled.size == 0 %} prj__metrics--pending{% endif %}">
+      <div class="prj__metrics-head">
+        <span class="prj__metrics-title"><i class="fas fa-chart-simple" aria-hidden="true"></i>운영 지표</span>
+        {% if m.source %}<span class="prj__metrics-source">{{ m.source }}</span>{% endif %}
+      </div>
+      <ul class="prj__metrics-list">
+        {% for item in m.items %}
+          <li>
+            {% if item.value %}
+              <span class="prj__metrics-value">{{ item.value }}</span>
+            {% else %}
+              <span class="prj__metrics-value prj__metrics-value--empty">수집 중</span>
+            {% endif %}
+            <span class="prj__metrics-label">{{ item.label }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if m.note %}<p class="prj__metrics-note">{{ m.note }}</p>{% endif %}
+    </div>
+  {% endif %}
+
   {% if project.stack %}
     <ul class="prj__stack">
       {% for tech in project.stack %}<li>{{ tech }}</li>{% endfor %}
