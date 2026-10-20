@@ -2,7 +2,9 @@
 ---
 
 @use 'abstracts/variables' with (
-  $theme: '{{ site.theme_mode }}'
+  $theme: '{{ site.theme_mode }}',
+  $font-family-base: ('Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif),
+  $font-family-heading: ('Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif)
 );
 
 /* prettier-ignore */
@@ -177,39 +179,152 @@
   margin: 0 0 2.25rem;
 }
 
-/* 핵심 숫자 — 데이터 파일 개수로 계산되므로 항목을 추가하면 자동으로 바뀐다 */
+/* 핵심 숫자 — 데이터 파일 개수로 계산되므로 항목을 추가하면 자동으로 바뀐다.
+   버튼과 헷갈리지 않게 상자 없이 '큰 숫자 + 라벨'을 세로선으로만 구분한다. */
 .hero__stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
   list-style: none;
   padding: 0;
-  margin: -0.75rem 0 2.25rem;
+  margin: -0.5rem 0 2.25rem;
+}
+
+.hero__stats li + li {
+  border-left: 1px solid color-mix(in srgb, var(--text-muted-color) 30%, transparent);
 }
 
 .hero__stats a {
   display: flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  padding: 0.55rem 1rem;
-  border-radius: 0.65rem;
-  background-color: var(--card-bg);
-  border: 1px solid var(--main-border-color);
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0 1.6rem;
   color: var(--text-muted-color) !important;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  transition: border-color 0.15s ease;
+}
+
+.hero__stats li:first-child a {
+  padding-left: 0;
 }
 
 .hero__stats a:hover {
-  border-color: var(--link-color);
   text-decoration: none;
 }
 
+.hero__stats a:hover strong {
+  color: var(--link-color);
+}
+
 .hero__stats strong {
-  font-size: 1.35rem;
+  font-size: 1.85rem;
   font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--heading-color);
+  transition: color 0.15s ease;
+}
+
+/* 데스크톱: 왼쪽 소개 | 오른쪽 요약 카드 */
+@media (min-width: 992px) {
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20.5rem;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+.hero__card {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .hero__card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    border: 1px solid var(--main-border-color);
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+}
+
+.hero__card-row {
+  display: block;
+  padding: 1.1rem 1.35rem;
+}
+
+.hero__card-row + .hero__card-row {
+  border-top: 1px solid var(--main-border-color);
+}
+
+.hero__card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted-color);
+  margin: 0 0 0.35rem;
+}
+
+.hero__card-value {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--heading-color);
+  margin: 0;
+  word-break: keep-all;
+  text-wrap: balance; /* 마지막 줄에 한 글자만 떨어지지 않게 */
+}
+
+.hero__card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted-color);
+  margin: 0.2rem 0 0;
+  word-break: keep-all;
+}
+
+.hero__card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.15rem 0 0;
+}
+
+.hero__card-chips li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.22rem 0.58rem;
+  border-radius: 0.38rem;
+  color: var(--link-color);
+  background-color: color-mix(in srgb, var(--link-color) 10%, transparent);
+}
+
+/* 대표 프로젝트 줄 — 해당 프로젝트 강조색 막대 */
+.hero__card-link {
+  position: relative;
+  transition: background-color 0.15s ease;
+}
+
+.hero__card-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  background-color: var(--prj-accent);
+}
+
+.hero__card-link:hover {
+  background-color: var(--card-hover-bg);
+  text-decoration: none;
+}
+
+.hero__card-link .hero__card-label {
+  color: var(--prj-accent);
 }
 
 .hero__actions {
@@ -222,6 +337,7 @@
 .btn-ghost {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.55rem;
   padding: 0.72rem 1.45rem;
   border-radius: 0.65rem;
@@ -269,9 +385,10 @@
 
 /* ── 업무 도메인 ────────────────────────────────────────── */
 
+/* 데스크톱 4열(7개면 4+3), 태블릿 2열, 모바일 1열 */
 .domains {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-template-columns: 1fr;
   gap: 0.75rem;
   list-style: none;
   padding: 0;
@@ -288,6 +405,23 @@
   border-radius: 0.8rem;
 }
 
+@media (min-width: 576px) {
+  .domains {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .domains {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 색은 프로젝트 카드와 같은 .prj--{accent} 클래스의 --prj-accent 를 쓴다 */
+.domains__item {
+  --prj-accent: var(--link-color);
+}
+
 .domains__item > i {
   flex: 0 0 2.1rem;
   height: 2.1rem;
@@ -296,8 +430,8 @@
   justify-content: center;
   border-radius: 0.55rem;
   font-size: 0.95rem;
-  color: var(--link-color);
-  background-color: color-mix(in srgb, var(--link-color) 11%, transparent);
+  color: var(--prj-accent);
+  background-color: color-mix(in srgb, var(--prj-accent) 13%, transparent);
 }
 
 .domains__name {
@@ -361,6 +495,30 @@
 
 .skills__group + .skills__group {
   border-top: 1px solid var(--main-border-color);
+}
+
+/* 데스크톱 2열 — 구분선은 1px 간격 사이로 비치는 테두리색으로 그린다.
+   그룹 수가 홀수면 마지막 그룹이 한 줄을 다 쓴다. */
+@media (min-width: 992px) {
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background-color: var(--main-border-color);
+  }
+
+  .skills__group {
+    grid-template-columns: 8.5rem 1fr;
+    background-color: var(--card-bg);
+  }
+
+  .skills__group + .skills__group {
+    border-top: none;
+  }
+
+  .skills__group:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 .skills__name {
@@ -970,7 +1128,8 @@
   position: relative;
   padding-left: 1.5rem;
   padding-bottom: 1.75rem;
-  border-left: 2px solid var(--main-border-color);
+  /* 배경 위에 그리는 선이라 --main-border-color로는 보이지 않는다(.prj-group::after 참고) */
+  border-left: 2px solid color-mix(in srgb, var(--text-muted-color) 28%, transparent);
 }
 
 .about__item:last-of-type {
@@ -1011,39 +1170,163 @@
   margin-bottom: 0.45rem;
 }
 
-/* 연락처는 칩 버튼으로 — 본문 링크와 구분되게 */
-.about__links {
+/* 데스크톱: 왼쪽 경력 타임라인 | 오른쪽 연락처 카드 */
+@media (min-width: 992px) {
+  .about__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 21rem;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about__grid .about__subtitle {
+    margin-top: 0;
+  }
+
+  .about__contact {
+    position: sticky;
+    top: 5rem;
+  }
+}
+
+/* 연락처 카드 — 아이콘 · 이름 · 주소를 한 줄씩 */
+.contact-card {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: var(--card-bg);
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+
+.contact-card li + li {
+  border-top: 1px solid var(--main-border-color);
+}
+
+.contact-card a {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  grid-template-areas:
+    'icon name'
+    'icon value';
+  column-gap: 0.85rem;
+  align-items: center;
+  padding: 0.9rem 1.15rem;
+  color: var(--text-color) !important;
+  transition: background-color 0.15s ease;
+}
+
+.contact-card a:hover {
+  background-color: var(--card-hover-bg);
+  text-decoration: none;
+}
+
+.contact-card i {
+  grid-area: icon;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.55rem;
+  color: var(--link-color);
+  background-color: color-mix(in srgb, var(--link-color) 11%, transparent);
+}
+
+.contact-card__name {
+  grid-area: name;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted-color);
+}
+
+.contact-card__value {
+  grid-area: value;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--heading-color);
+  overflow-wrap: anywhere;
+}
+
+.contact-card a:hover .contact-card__value {
+  color: var(--link-color);
+}
+
+/* ── 하단(footer) ───────────────────────────────────────── */
+
+.site-footer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0 2rem;
+  margin-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--text-muted-color) 22%, transparent);
+}
+
+.site-footer__copy {
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+  margin: 0;
+}
+
+.site-footer__links {
+  display: flex;
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.about__links li {
-  margin: 0;
-}
-
-.about__links a {
+.site-footer__links a {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.62rem 1.15rem;
-  background-color: var(--card-bg);
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
   border: 1px solid var(--main-border-color);
-  border-radius: 0.65rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-color) !important;
-  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  background-color: var(--card-bg);
+  color: var(--text-muted-color) !important;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.about__links a:hover {
-  background-color: var(--card-hover-bg);
-  border-color: var(--link-color);
+.site-footer__links a:hover {
   color: var(--link-color) !important;
+  border-color: var(--link-color);
   text-decoration: none;
+}
+
+/* 모바일 첫 화면 버튼: '프로젝트 보기'는 남은 폭을 다 쓰고, 이메일·GitHub은 아이콘 버튼으로 한 줄에 */
+@media (max-width: 575px) {
+  .hero__actions {
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+  }
+
+  .hero__actions .btn-primary-soft {
+    flex: 1 1 auto;
+  }
+
+  .hero__actions .btn-ghost {
+    flex: 0 0 auto;
+    width: 3rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .hero__actions .btn__label {
+    display: none;
+  }
+
+  .hero__stats a {
+    padding: 0 1.1rem;
+  }
+
+  .hero__stats strong {
+    font-size: 1.55rem;
+  }
 }
 
 /* ── 모바일 여백 조정 ───────────────────────────────────── */
@@ -1214,9 +1497,11 @@
     content: ' ' attr(href);
   }
 
-  .about__links a[href^='http']::after {
-    content: ' (' attr(href) ')';
-    font-size: 0.8em;
-    color: var(--text-muted-color);
+  .hero__card {
+    display: none !important;
+  }
+
+  .contact-card li {
+    break-inside: avoid;
   }
 }

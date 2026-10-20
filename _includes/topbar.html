@@ -15,9 +15,17 @@
       <a class="topnav__brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
       {% comment %}
-        탭이 없으면 '홈' 링크는 브랜드 링크와 중복이므로 메뉴 자체를 그리지 않습니다.
+        홈(한 페이지 포트폴리오)에서는 섹션 바로가기 — 현재 위치는 home.html의 스크롤 스크립트가 강조.
+        탭이 없으면 '홈' 링크는 브랜드 링크와 중복이므로 탭 메뉴는 그리지 않습니다.
       {% endcomment %}
-      {% if visible_tabs.size > 0 %}
+      {% if page.layout == 'home' %}
+        <nav class="topnav__menu" aria-label="섹션 바로가기">
+          <a href="#skills" class="topnav__link" data-section="skills">기술 스택</a>
+          <a href="#domains" class="topnav__link" data-section="domains">업무 도메인</a>
+          <a href="#projects" class="topnav__link" data-section="projects">프로젝트</a>
+          <a href="#about" class="topnav__link" data-section="about">정보</a>
+        </nav>
+      {% elsif visible_tabs.size > 0 %}
         <nav class="topnav__menu" aria-label="Main Navigation">
           <a
             href="{{ '/' | relative_url }}"
