@@ -6,6 +6,8 @@
 # details 소제목은 아래 순서·이름으로 통일합니다(해당 내용이 없으면 생략).
 #   문제 정의 → 주요 기능(팀: 담당 업무) → 설계 → 트러블슈팅 → 검증·결과 → 배운 점 → 한계 → 참고
 #   같은 종류가 여러 개면 "설계 — 보안"처럼 ' — ' 뒤에 구분어를 붙입니다(화면에서 흐리게 표시).
+# metrics: 운영 지표 칸(선택). items마다 label과 value를 적고, value가 없으면 '수집 중'으로 표시됩니다.
+#   note는 칸 아래 작은 안내 문구입니다(데이터가 채워지면 지우면 됩니다).
 # links 항목에 live: true를 주면 실제 접속 가능한 서비스로 보고 'Live' 배지로 표시합니다.
 # rank가 없는 personal 항목이 4개 이하면 토글 없이 한 줄 카드로 보이고, 5개 이상이면 연도·월 토글로 접힙니다.
 # rank: 1, 2, ... 를 준 personal 항목은 '대표 프로젝트'로 맨 위에 rank 순서대로 강조되고,
@@ -33,6 +35,13 @@
     - label: GitHub
       icon: fab fa-github
       url: https://github.com/dlwldP/Awscal
+  metrics:
+    source: Google Analytics
+    note: 데이터 정보 수집 중 · 업데이트 예정
+    items:
+      - label: 실사용자 수
+      - label: 검색 유입
+      - label: 페이지뷰
   details:
     - heading: 주요 기능
       items:
