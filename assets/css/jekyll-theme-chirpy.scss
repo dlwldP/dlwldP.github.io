@@ -144,6 +144,59 @@
   }
 }
 
+/* 모바일 홈: 상단바를 고정하고 가운데 제목 자리에 가로 스크롤 섹션 탭.
+   ☰(사이드바)는 라이트/다크 전환 버튼이 들어 있어 그대로 둔다. */
+@media (max-width: 991px) {
+  #topbar-wrapper:has(.topnav--sections) {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background-color: var(--main-bg);
+    border-bottom: 1px solid var(--main-border-color);
+  }
+
+  .topnav--sections {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .topnav--sections .topnav__brand,
+  .topnav--sections ~ #topbar-title {
+    display: none;
+  }
+
+  .topnav--sections .topnav__menu {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-right: 0.5rem;
+    mask-image: linear-gradient(90deg, #000 88%, transparent);
+  }
+
+  .topnav--sections .topnav__menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topnav--sections .topnav__link {
+    flex: 0 0 auto;
+    padding: 0.4rem 0.6rem;
+    border-radius: 2rem;
+    font-size: 0.84rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--text-muted-color) !important;
+  }
+
+  .topnav--sections .topnav__link.active {
+    font-weight: 700;
+    color: var(--link-color) !important;
+    background-color: color-mix(in srgb, var(--link-color) 10%, transparent);
+  }
+}
+
 /* ── Hero ───────────────────────────────────────────────── */
 
 .hero {
@@ -411,6 +464,36 @@
   }
 }
 
+/* 모바일도 2열 — 1열 7칸이면 너무 길어진다. 좁은 칸이라 아이콘을 글자 위로 */
+@media (max-width: 575px) {
+  .domains {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .domains__item {
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 0.9rem 0.95rem;
+  }
+
+  .domains__item > i {
+    flex: 0 0 auto;
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 0.85rem;
+  }
+
+  .domains__name {
+    font-size: 0.92rem;
+    margin-top: 0;
+  }
+
+  .domains__basis {
+    font-size: 0.76rem;
+  }
+}
+
 @media (min-width: 992px) {
   .domains {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -508,8 +591,13 @@
   }
 
   .skills__group {
-    grid-template-columns: 8.5rem 1fr;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
     background-color: var(--card-bg);
+  }
+
+  .skills__name {
+    padding-top: 0;
   }
 
   .skills__group + .skills__group {
@@ -560,12 +648,22 @@
 .prj-group {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  font-size: 1.15rem;
+  gap: 0.6rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--heading-color);
-  margin: 0 0 1.4rem;
+  letter-spacing: 0.01em;
+  color: var(--text-muted-color);
+  margin: 0 0 1.2rem;
+}
+
+/* 섹션 제목(h2) 바로 아래 소그룹 제목은 섹션 제목과 붙여, 두 겹 제목이 아닌 '분류 라벨'로 읽히게 */
+.section__head + .prj-group {
+  margin-top: -0.4rem;
+}
+
+/* 그룹 사이 간격 — 어떤 그리드 뒤에 오든 같은 간격 */
+.prj-grid + .prj-group {
+  margin-top: 3.25rem;
 }
 
 /* 라벨에서 이어지는 가로선 — 두 그룹의 경계가 스크롤 중에도 잡히게.
@@ -782,6 +880,36 @@
 .prj--cyan { --prj-accent: #0891b2; }
 .prj--emerald { --prj-accent: #059669; }
 .prj--pink { --prj-accent: #db2777; }
+
+/* 같은 줄 카드 하단을 맞춘다. 한 장이라도 '자세히 보기'를 펼치면 맞춤을 풀어
+   옆 카드가 빈 채로 늘어나지 않게 한다(.prj-grid 주석 참고). 한 줄짜리 그리드용. */
+@media (min-width: 992px) {
+  .prj-grid--equal {
+    align-items: stretch;
+  }
+
+  .prj-grid--equal:has(.prj__details[open]) {
+    align-items: start;
+  }
+
+  /* 그 외 개인 프로젝트: 3열 작은 카드 */
+  .prj-grid--compact {
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 1.1rem;
+  }
+
+  .prj-grid--compact .prj {
+    padding: 1.35rem 1.35rem 1.25rem;
+  }
+
+  .prj-grid--compact .prj__name {
+    font-size: 1.1rem;
+  }
+
+  .prj-grid--compact .prj__summary {
+    font-size: 0.9rem;
+  }
+}
 
 /* ── 대표 프로젝트(rank) 강조 ── */
 .prj-grid--top + .prj-group {
@@ -1370,20 +1498,21 @@
   }
 }
 
-/* 폭이 좁으면 링크 버튼을 제목 아래 한 줄로 내린다 */
-@media (max-width: 575px) {
-  .prj__head {
-    grid-template-areas:
-      'titles period'
-      'links links';
-    grid-template-rows: auto auto;
-  }
 
-  .prj__links {
-    justify-self: start;
-    justify-content: flex-start;
-    margin-top: 0.35rem;
-  }
+/* ── 키보드 포커스 표시 ─────────────────────────────────── */
+/* 마우스 클릭에는 나타나지 않고 Tab 이동 때만 보인다 */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--link-color) !important;
+  outline-offset: 3px;
+  border-radius: 0.4rem;
+  box-shadow: none;
+}
+
+.prj__links a:focus-visible,
+.site-footer__links a:focus-visible {
+  border-radius: 50%;
 }
 
 /* ── 스크롤 등장 효과 ─────────────────────────────────── */

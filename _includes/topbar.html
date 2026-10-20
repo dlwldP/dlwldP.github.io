@@ -11,7 +11,8 @@
 
     <!-- 데스크톱 내비게이션 -->
     {% assign visible_tabs = site.tabs | where_exp: 'tab', 'tab.hidden != true' %}
-    <div class="topnav">
+    {% comment %} topnav--sections: 홈에서는 모바일에도 섹션 탭을 보여 준다(CSS 참고) {% endcomment %}
+    <div class="topnav{% if page.layout == 'home' %} topnav--sections{% endif %}">
       <a class="topnav__brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
       {% comment %}
