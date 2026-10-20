@@ -6,6 +6,7 @@
 # details 소제목은 아래 순서·이름으로 통일합니다(해당 내용이 없으면 생략).
 #   문제 정의 → 주요 기능(팀: 담당 업무) → 설계 → 트러블슈팅 → 검증·결과 → 배운 점 → 한계 → 참고
 #   같은 종류가 여러 개면 "설계 — 보안"처럼 ' — ' 뒤에 구분어를 붙입니다(화면에서 흐리게 표시).
+# links 항목에 live: true를 주면 실제 접속 가능한 서비스로 보고 'Live' 배지로 표시합니다.
 # rank가 없는 personal 항목이 4개 이하면 토글 없이 한 줄 카드로 보이고, 5개 이상이면 연도·월 토글로 접힙니다.
 # rank: 1, 2, ... 를 준 personal 항목은 '대표 프로젝트'로 맨 위에 rank 순서대로 강조되고,
 # 연도·월 토글에서는 빠집니다. rank 1은 가로 전체 폭 카드로 그려집니다.
@@ -27,6 +28,7 @@
   links:
     - label: 서비스 바로가기
       icon: fas fa-arrow-up-right-from-square
+      live: true
       url: https://dlwldp.github.io/Awscal/
     - label: GitHub
       icon: fab fa-github
@@ -309,6 +311,7 @@
   links:
     - label: 서비스 바로가기
       icon: fas fa-arrow-up-right-from-square
+      live: true
       url: https://bangcheck.site
   details:
     - heading: 담당 업무 — 인증 / 인가

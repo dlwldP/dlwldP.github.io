@@ -43,7 +43,7 @@ layout: default
   <aside class="hero__card" aria-label="요약">
     <div class="hero__card-row">
       <p class="hero__card-label">지금 하는 일</p>
-      <p class="hero__card-value">{{ now_job.items | last }}</p>
+      <p class="hero__card-value">{{ now_job.summary | default: now_job.items.last }}</p>
       <p class="hero__card-meta">{{ now_job.role }} · {{ now_job.period }}</p>
     </div>
     {% if hero_skills.size > 0 %}
@@ -63,48 +63,6 @@ layout: default
     {% endif %}
   </aside>
 </section>
-
-<!-- ── Skills ─────────────────────────────────────────────── -->
-{% if site.data.skills %}
-  <section id="skills" class="section">
-    <div class="section__head">
-      <h2 class="section__title">기술 스택</h2>
-    </div>
-    <div class="skills">
-      {% for skill in site.data.skills %}
-        <div class="skills__group">
-          <h3 class="skills__name">
-            {% if skill.icon %}<i class="{{ skill.icon }}"></i>{% endif %}{{ skill.group }}
-          </h3>
-          <ul class="skills__list">
-            {% for item in skill.items %}<li>{{ item }}</li>{% endfor %}
-          </ul>
-        </div>
-      {% endfor %}
-    </div>
-  </section>
-{% endif %}
-
-<!-- ── Domains ────────────────────────────────────────────── -->
-{% if site.data.domains %}
-  <section id="domains" class="section">
-    <div class="section__head">
-      <h2 class="section__title">업무 도메인</h2>
-    </div>
-    <p class="section__lead">경력과 프로젝트로 직접 다뤄 본 업종입니다.</p>
-    <ul class="domains">
-      {% for d in site.data.domains %}
-        <li class="domains__item prj--{{ d.accent | default: 'blue' }}">
-          <i class="{{ d.icon }}" aria-hidden="true"></i>
-          <div>
-            <p class="domains__name">{{ d.name }}</p>
-            <p class="domains__basis">{{ d.basis | join: ' · ' }}</p>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-{% endif %}
 
 <!-- ── Projects ───────────────────────────────────────────── -->
 {% assign featured = site.data.projects | where: 'featured', true %}
@@ -214,6 +172,48 @@ layout: default
         {% endfor %}
       </div>
     {% endif %}
+  </section>
+{% endif %}
+
+<!-- ── Skills ─────────────────────────────────────────────── -->
+{% if site.data.skills %}
+  <section id="skills" class="section">
+    <div class="section__head">
+      <h2 class="section__title">기술 스택</h2>
+    </div>
+    <div class="skills">
+      {% for skill in site.data.skills %}
+        <div class="skills__group">
+          <h3 class="skills__name">
+            {% if skill.icon %}<i class="{{ skill.icon }}"></i>{% endif %}{{ skill.group }}
+          </h3>
+          <ul class="skills__list">
+            {% for item in skill.items %}<li>{{ item }}</li>{% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<!-- ── Domains ────────────────────────────────────────────── -->
+{% if site.data.domains %}
+  <section id="domains" class="section">
+    <div class="section__head">
+      <h2 class="section__title">업무 도메인</h2>
+    </div>
+    <p class="section__lead">경력과 프로젝트로 직접 다뤄 본 업종입니다.</p>
+    <ul class="domains">
+      {% for d in site.data.domains %}
+        <li class="domains__item">
+          <i class="{{ d.icon }}" aria-hidden="true"></i>
+          <div>
+            <p class="domains__name">{{ d.name }}</p>
+            <p class="domains__basis">{{ d.basis | join: ' · ' }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
   </section>
 {% endif %}
 

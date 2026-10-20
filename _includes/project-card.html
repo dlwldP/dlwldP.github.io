@@ -16,7 +16,11 @@
     {% if project.links %}
       <div class="prj__links">
         {% for link in project.links %}
-          {% if link.icon %}
+          {% if link.live %}
+            <a class="prj__live" href="{{ link.url }}" target="_blank" rel="noopener noreferrer" title="{{ link.label }}" aria-label="{{ link.label }} (실제 서비스)">
+              <span class="prj__live-dot" aria-hidden="true"></span>Live
+            </a>
+          {% elsif link.icon %}
             <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" title="{{ link.label }}" aria-label="{{ link.label }}">
               <i class="{{ link.icon }}" aria-hidden="true"></i>
             </a>

@@ -20,6 +20,35 @@
 
 :root {
   --content-max: 1040px;
+  /* 기간·기술 칩·숫자처럼 '데이터' 성격의 텍스트용. 한글은 Pretendard로 대체된다 */
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    'Pretendard Variable', Pretendard, monospace;
+  --live-color: #047857;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme='light']) {
+    --live-color: #34d399;
+  }
+}
+
+:root[data-bs-theme='dark'] {
+  --live-color: #34d399;
+}
+
+.hero__eyebrow,
+.hero__stats strong,
+.hero__card-chips li,
+.skills__list li,
+.prj__period,
+.prj__rank,
+.prj__stack li,
+.prj__live,
+.prj-group__count,
+.prj-year__count,
+.prj-month__count {
+  font-family: var(--font-mono);
+  font-feature-settings: 'zero' 0;
 }
 
 /* 라이트 모드 배경을 옅은 회색으로 — 기본값은 카드(흰색)와 같은 순백색이라
@@ -209,7 +238,7 @@
 .hero__eyebrow {
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--link-color);
   margin: 0 0 1rem;
@@ -313,7 +342,7 @@
 }
 
 .hero__card-label {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--text-muted-color);
@@ -347,7 +376,7 @@
 }
 
 .hero__card-chips li {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   padding: 0.22rem 0.58rem;
   border-radius: 0.38rem;
@@ -490,7 +519,7 @@
   }
 
   .domains__basis {
-    font-size: 0.76rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -749,7 +778,7 @@
 }
 
 .prj-year__count {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--text-muted-color);
   background-color: var(--inline-code-bg);
@@ -822,7 +851,7 @@
 }
 
 .prj-month__count {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted-color);
   background-color: var(--inline-code-bg);
@@ -944,7 +973,7 @@
 
 .prj__rank {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: var(--prj-accent);
@@ -1114,7 +1143,7 @@
 /* 테두리 대신 옅은 배경 — 태그가 6~7개 겹칠 때 생기던 상자 격자 느낌을 줄인다 */
 /* 글자는 본문색 — 흐린 회색(--text-muted-color)은 회색 칩 위에서 대비가 부족했다 */
 .prj__stack li {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 500;
   padding: 0.26rem 0.62rem;
   border-radius: 0.38rem;
@@ -1151,10 +1180,54 @@
   background-color: color-mix(in srgb, var(--prj-accent) 10%, transparent);
 }
 
+/* 실제 접속 가능한 서비스 — 'Live' 배지로 GitHub 아이콘보다 먼저 눈에 띄게 */
+.prj__links a.prj__live {
+  width: auto;
+  gap: 0.42rem;
+  padding: 0 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--live-color);
+  border-color: color-mix(in srgb, var(--live-color) 45%, transparent);
+  background-color: color-mix(in srgb, var(--live-color) 10%, transparent);
+}
+
+.prj__links a.prj__live:hover {
+  color: var(--live-color);
+  background-color: color-mix(in srgb, var(--live-color) 18%, transparent);
+}
+
+.prj__live-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--live-color);
+  animation: live-pulse 2.4s ease-out infinite;
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--live-color) 55%, transparent);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.4rem transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prj__live-dot {
+    animation: none;
+  }
+}
+
 /* 아이콘이 지정되지 않은 링크는 이름을 글자로 보여 주는 알약형 */
 .prj__links a.prj__link-text {
   width: auto;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   white-space: nowrap;
   border-radius: 2rem;
@@ -1366,7 +1439,7 @@
 
 .contact-card__name {
   grid-area: name;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--text-muted-color);
 }
@@ -1640,7 +1713,8 @@ summary:focus-visible {
     color: var(--text-muted-color) !important;
   }
 
-  .prj__links a i {
+  .prj__links a i,
+  .prj__live-dot {
     display: none;
   }
 
