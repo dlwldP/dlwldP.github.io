@@ -78,88 +78,69 @@ layout: default
     </div>
 
     {% if top.size > 0 %}
+      {% comment %}
+        개수가 홀수면 rank 1을 가로 전체 폭(--wide)으로, 짝수면 2열로 고르게 놓는다.
+        --lead는 CSS가 '같은 줄 짝'을 계산할 때 첫 카드가 한 줄을 다 쓰는지 알려 준다.
+      {% endcomment %}
+      {% assign top_odd = top.size | modulo: 2 %}
       <h3 class="prj-group">
         대표 프로젝트 <span class="prj-group__count">{{ top.size }}</span>
       </h3>
-      <div class="prj-grid prj-grid--top">
+      <div class="prj-grid prj-grid--top{% if top_odd == 1 %} prj-grid--lead{% endif %}">
         {% for project in top %}
-          {% include project-card.html project=project rank=forloop.index %}
+          {% assign wide = false %}
+          {% if forloop.first and top_odd == 1 %}{% assign wide = true %}{% endif %}
+          {% include project-card.html project=project rank=forloop.index wide=wide %}
         {% endfor %}
       </div>
     {% endif %}
 
     {% if personal.size > 0 %}
+      {% comment %}
+        부가 프로젝트: 처음엔 접힌 토글 하나. 접힌 상태에서도 분야별 개수가 보이고,
+        펼치면 분야(_data/categories.yml 순서)마다 3열 작은 카드. 분야가 없거나 모르는 값이면 '기타'.
+      {% endcomment %}
+      {% assign cat_ids = site.data.categories | map: 'id' %}
+      {% assign uncategorized = "" | split: "" %}
+      {% for p in personal %}
+        {% unless cat_ids contains p.category %}{% assign uncategorized = uncategorized | push: p %}{% endunless %}
+      {% endfor %}
       <h3 class="prj-group">
-        {% if top.size > 0 %}그 외 {% endif %}개인 프로젝트 <span class="prj-group__count">{{ personal.size }}</span>
+        부가 프로젝트 <span class="prj-group__count">{{ personal.size }}</span>
       </h3>
-
-      {% comment %}
-        몇 개 안 될 때는 토글 없이 한 줄 카드로 바로 보여 주고(월마다 카드 1장씩 여닫는 구조를 피함),
-        개수가 늘어나면 자동으로 연도·월 토글로 접는다.
-      {% endcomment %}
-      {% if personal.size <= 4 %}
-        <div class="prj-grid prj-grid--equal prj-grid--compact">
-          {% for project in personal %}
-            {% include project-card.html project=project %}
-          {% endfor %}
-        </div>
-      {% else %}
-      {% comment %}
-        personal은 이미 최신순으로 정렬돼 있다고 전제한다(파일 코멘트 참고).
-        연도·월이 바뀔 때마다 details를 새로 열고 직전 details를 닫는 방식으로
-        중첩 토글을 만든다 — 맨 처음(가장 최신) 연도·월만 펼친 채로 시작해,
-        나머지는 접어서 "개인 프로젝트가 너무 많다"는 문제를 줄인다.
-      {% endcomment %}
-      <div class="prj-years">
-        {% assign prev_year = nil %}
-        {% assign prev_month = nil %}
-        {% for project in personal %}
-          {% assign y = project.year %}
-          {% assign m = project.month %}
-
-          {% if y != prev_year %}
-            {% unless prev_year == nil %}
-                  </div>
-                </details>
-                </div>
-              </details>
-            {% endunless %}
-            {% assign year_items = personal | where: 'year', y %}
-            <details class="prj-year"{% if forloop.first %} open{% endif %}>
-              <summary class="prj-year__summary">
-                <span class="prj-year__label">{{ y }}년</span>
-                <span class="prj-year__count">{{ year_items.size }}</span>
-              </summary>
-              <div class="prj-year__body">
-            {% assign prev_year = y %}
-            {% assign prev_month = nil %}
-          {% endif %}
-
-          {% if m != prev_month %}
-            {% unless prev_month == nil %}
-                  </div>
-                </details>
-            {% endunless %}
-            {% assign month_items = personal | where: 'year', y | where: 'month', m %}
-                <details class="prj-month"{% if forloop.first %} open{% endif %}>
-                  <summary class="prj-month__summary">
-                    <span class="prj-month__label">{{ m }}월</span>
-                    <span class="prj-month__count">{{ month_items.size }}</span>
-                  </summary>
-                  <div class="prj-grid">
-            {% assign prev_month = m %}
-          {% endif %}
-
-          {% include project-card.html project=project %}
-        {% endfor %}
-        {% unless prev_year == nil %}
-                </div>
-              </details>
+      <details class="prj-more">
+        <summary class="prj-more__summary">
+          <span class="prj-more__label">분야별로 보기</span>
+          <span class="prj-more__cats">
+            {% for cat in site.data.categories %}
+              {% assign items = personal | where: 'category', cat.id %}
+              {% if items.size > 0 %}<span class="prj-more__cat">{{ cat.name }} <b>{{ items.size }}</b></span>{% endif %}
+            {% endfor %}
+            {% if uncategorized.size > 0 %}<span class="prj-more__cat">기타 <b>{{ uncategorized.size }}</b></span>{% endif %}
+          </span>
+        </summary>
+        <div class="prj-more__body">
+          {% for cat in site.data.categories %}
+            {% assign items = personal | where: 'category', cat.id %}
+            {% if items.size > 0 %}
+              <h4 class="prj-cat">{{ cat.name }} <span class="prj-group__count">{{ items.size }}</span></h4>
+              <div class="prj-grid prj-grid--equal prj-grid--compact">
+                {% for project in items %}
+                  {% include project-card.html project=project %}
+                {% endfor %}
               </div>
-            </details>
-        {% endunless %}
-      </div>
-      {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if uncategorized.size > 0 %}
+            <h4 class="prj-cat">기타 <span class="prj-group__count">{{ uncategorized.size }}</span></h4>
+            <div class="prj-grid prj-grid--equal prj-grid--compact">
+              {% for project in uncategorized %}
+                {% include project-card.html project=project %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </details>
     {% endif %}
 
     {% if team.size > 0 %}
@@ -342,7 +323,7 @@ layout: default
 
     var targets = document.querySelectorAll(
       '.section__head, .section__lead, .skills, .domains__item, .prj-group, ' +
-      '.prj-grid > .prj, .prj-year, .about__item, .contact-card'
+      '.prj-grid > .prj, .prj-more, .about__item, .contact-card'
     );
     document.documentElement.classList.add('js-reveal');
 

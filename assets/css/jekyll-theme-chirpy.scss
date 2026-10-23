@@ -45,8 +45,7 @@
 .prj__stack li,
 .prj__live,
 .prj-group__count,
-.prj-year__count,
-.prj-month__count {
+.prj-more__cat b {
   font-family: var(--font-mono);
   font-feature-settings: 'zero' 0;
 }
@@ -715,29 +714,24 @@
   padding: 0.15rem 0.62rem;
 }
 
-/* 개인 프로젝트가 너무 많아지지 않도록 연도 → 월 순으로 접는 중첩 토글.
-   가장 최신 연도·월만 펼친 채로 시작한다(_layouts/home.html의 forloop.first). */
-.prj-years {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.prj-years + .prj-group {
-  margin-top: 3.25rem;
-}
-
-.prj-year {
+/* 부가 프로젝트: 처음엔 접힌 토글 하나. 접혀 있어도 분야별 개수가 보인다.
+   펼치면 분야 라벨(.prj-cat)마다 3열 작은 카드. */
+.prj-more {
   background-color: var(--card-bg);
   border: 1px solid var(--main-border-color);
   border-radius: 0.9rem;
   overflow: hidden;
 }
 
-.prj-year__summary {
+.prj-more + .prj-group {
+  margin-top: 3.25rem;
+}
+
+.prj-more__summary {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.9rem;
   padding: 1rem 1.3rem;
   cursor: pointer;
   list-style: none;
@@ -745,16 +739,16 @@
   transition: background-color 0.15s ease;
 }
 
-.prj-year__summary:hover {
+.prj-more__summary:hover {
   background-color: var(--card-hover-bg);
 }
 
-.prj-year__summary::-webkit-details-marker {
+.prj-more__summary::-webkit-details-marker {
   display: none;
 }
 
 /* 토글 화살표 — .prj__details summary와 같은 CSS 전용 방식 */
-.prj-year__summary::before {
+.prj-more__summary::before {
   content: '';
   flex: 0 0 auto;
   width: 0.5rem;
@@ -766,97 +760,51 @@
   transition: transform 0.2s ease;
 }
 
-.prj-year[open] > .prj-year__summary::before {
+.prj-more[open] > .prj-more__summary::before {
   transform: rotate(-135deg);
   margin-bottom: 0;
 }
 
-.prj-year__label {
-  font-size: 1.05rem;
+.prj-more__label {
+  font-size: 1rem;
   font-weight: 700;
   color: var(--heading-color);
 }
 
-.prj-year__count {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted-color);
-  background-color: var(--inline-code-bg);
-  border-radius: 1rem;
-  padding: 0.15rem 0.6rem;
-}
-
-.prj-year__body {
-  padding: 0 1.3rem 1.3rem;
+.prj-more__cats {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
-.prj-month {
-  border-top: 1px solid var(--main-border-color);
-  padding-top: 1rem;
-}
-
-.prj-year__body > .prj-month:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
-.prj-month__summary {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1.1rem;
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-  transition: color 0.15s ease;
-}
-
-.prj-month__summary:hover {
-  color: var(--link-color);
-}
-
-.prj-month__summary:hover .prj-month__label {
-  color: var(--link-color);
-}
-
-.prj-month__summary::-webkit-details-marker {
-  display: none;
-}
-
-.prj-month__summary::before {
-  content: '';
-  flex: 0 0 auto;
-  width: 0.4rem;
-  height: 0.4rem;
-  margin-bottom: 0.1rem;
-  border-right: 2px solid var(--text-muted-color);
-  border-bottom: 2px solid var(--text-muted-color);
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-}
-
-.prj-month[open] > .prj-month__summary::before {
-  transform: rotate(-135deg);
-  margin-bottom: 0;
-}
-
-.prj-month__label {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--heading-color);
-  transition: color 0.15s ease;
-}
-
-.prj-month__count {
+.prj-more__cat {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted-color);
   background-color: var(--inline-code-bg);
   border-radius: 1rem;
-  padding: 0.1rem 0.5rem;
+  padding: 0.2rem 0.65rem;
+}
+
+.prj-more__cat b {
+  margin-left: 0.15rem;
+  color: var(--heading-color);
+}
+
+.prj-more__body {
+  padding: 0.25rem 1.3rem 1.4rem;
+  border-top: 1px solid var(--main-border-color);
+}
+
+/* 분야 라벨 — 부가 프로젝트 안의 소제목 */
+.prj-cat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 1.4rem 0 0.9rem;
 }
 
 /* align-items: start — 기본값(stretch)이면 카드가 grid row 높이를 꽉 채우므로,
@@ -938,6 +886,11 @@
   .prj-grid--compact .prj__summary {
     font-size: 0.9rem;
   }
+
+  /* 부가 프로젝트 안: 분야마다 1~2개라 3열이면 오른쪽이 비고 카드가 좁아진다 — 2열 */
+  .prj-more .prj-grid--compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* ── 대표 프로젝트(rank) 강조 ── */
@@ -958,8 +911,11 @@
   box-shadow: 0 6px 22px color-mix(in srgb, var(--prj-accent) 18%, transparent);
 }
 
-.prj--top-1 {
+.prj--wide {
   grid-column: 1 / -1;
+}
+
+.prj--top-1 {
   background-image: linear-gradient(
     135deg,
     color-mix(in srgb, var(--prj-accent) 9%, transparent),
@@ -991,49 +947,52 @@
 @media (min-width: 992px) {
   /* 접힌 상태에서는 같은 줄 카드 높이를 맞춰 하단(스택)이 나란히 오게 한다.
      한 카드를 펼치면 같은 줄 짝 카드만 start로 되돌려, 옆 카드가 빈 채로
-     늘어나 보이는 문제(.prj-grid 주석 참고)를 막는다. 1번 카드가 한 줄을
-     다 쓰므로 2·3, 4·5번이 짝이고 짝수 번째가 왼쪽이다. */
+     늘어나 보이는 문제(.prj-grid 주석 참고)를 막는다.
+     --lead(1번이 한 줄을 다 씀): 2·3, 4·5번이 짝이고 짝수 번째가 왼쪽.
+     그 외(2열로 고르게): 1·2, 3·4번이 짝이고 홀수 번째가 왼쪽. */
   .prj-grid--top {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
   }
 
-  .prj-grid--top > .prj:nth-child(even):has(.prj__details[open]) + .prj,
-  .prj-grid--top > .prj:nth-child(even):has(+ .prj .prj__details[open]) {
+  .prj-grid--lead > .prj:nth-child(even):has(.prj__details[open]) + .prj,
+  .prj-grid--lead > .prj:nth-child(even):has(+ .prj .prj__details[open]),
+  .prj-grid--top:not(.prj-grid--lead) > .prj:nth-child(odd):has(.prj__details[open]) + .prj,
+  .prj-grid--top:not(.prj-grid--lead) > .prj:nth-child(odd):has(+ .prj .prj__details[open]) {
     align-self: start;
   }
 
-  /* 가로 전체 폭인 1번 카드는 한 줄이 너무 길어지지 않게 설명 | 기술 스택 2단으로 */
-  .prj--top-1 {
+  /* 가로 전체 폭 카드(--wide)는 한 줄이 너무 길어지지 않게 설명 | 기술 스택 2단으로 */
+  .prj--wide {
     display: grid;
     grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     column-gap: 2.75rem;
     align-content: start;
   }
 
-  .prj--top-1 > * {
+  .prj--wide > * {
     grid-column: 1 / -1;
   }
 
-  .prj--top-1 > .prj__summary {
+  .prj--wide > .prj__summary {
     grid-column: 1;
     margin-bottom: 0;
   }
 
-  .prj--top-1 {
+  .prj--wide {
     grid-auto-flow: row dense;
   }
 
-  .prj--top-1 > .prj__metrics {
+  .prj--wide > .prj__metrics {
     grid-column: 1;
     margin: 1.25rem 0 0;
   }
 
-  .prj--top-1:has(> .prj__metrics) > .prj__stack {
+  .prj--wide:has(> .prj__metrics) > .prj__stack {
     grid-row: span 2;
   }
 
-  .prj--top-1 > .prj__stack {
+  .prj--wide > .prj__stack {
     grid-column: 2;
     align-self: start;
     align-content: flex-start;
@@ -1043,29 +1002,29 @@
     border-left: 1px solid var(--main-border-color);
   }
 
-  .prj--top-1 > .prj__details {
+  .prj--wide > .prj__details {
     margin-top: 1.5rem;
     padding-top: 1.1rem;
     border-top: 1px solid var(--main-border-color);
   }
 
-  .prj--top-1 .prj__details-body {
+  .prj--wide .prj__details-body {
     columns: 2;
     column-gap: 2.75rem;
   }
 
   /* 다단 경계에서는 위쪽 margin이 잘려 두 단의 시작 높이가 어긋나므로
      간격을 h4 위가 아니라 ul 아래로 옮긴다 */
-  .prj--top-1 .prj__details-body {
+  .prj--wide .prj__details-body {
     padding-top: 1.25rem;
   }
 
-  .prj--top-1 .prj__details-body h4 {
+  .prj--wide .prj__details-body h4 {
     margin-top: 0;
     break-after: avoid;
   }
 
-  .prj--top-1 .prj__details-body ul {
+  .prj--wide .prj__details-body ul {
     margin-bottom: 1.25rem;
     break-inside: avoid;
   }
@@ -1139,6 +1098,25 @@
    칩이 만들어 주던 간격을 대신 넣어 제목 블록과 설명을 갈라 준다. */
 .prj__head + .prj__summary {
   margin-top: 1.2rem;
+}
+
+/* 요약 아래 작은 안내 한 줄(선택, _data/projects.yml의 notice) */
+.prj__notice {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted-color);
+  background-color: var(--inline-code-bg);
+  border-radius: 0.45rem;
+  padding: 0.32rem 0.7rem;
+  margin: -0.6rem 0 1.5rem;
+}
+
+.prj__notice i {
+  color: var(--prj-accent);
 }
 
 /* ── 운영 지표(선택, _data/projects.yml의 metrics) ──
@@ -1664,11 +1642,11 @@
     padding: 1.35rem 1.3rem;
   }
 
-  .prj-year__summary {
+  .prj-more__summary {
     padding: 0.9rem 1.1rem;
   }
 
-  .prj-year__body {
+  .prj-more__body {
     padding: 0 1.1rem 1.1rem;
   }
 }
@@ -1781,7 +1759,7 @@ summary:focus-visible {
   }
 
   .prj,
-  .prj-year,
+  .prj-more,
   .domains__item,
   .skills {
     box-shadow: none !important;

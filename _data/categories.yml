@@ -1,0 +1,9 @@
+# 홈 화면 '부가 프로젝트' 분야. 이 순서대로 보이며,
+# _data/projects.yml에서 rank가 없는 personal 항목의 category 값이 id와 맞으면 그 분야로 묶입니다.
+
+- id: cloud
+  name: 클라우드 · 인프라
+- id: ai
+  name: AI · 업무 자동화
+- id: mobile
+  name: 모바일

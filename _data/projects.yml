@@ -1,24 +1,69 @@
 # 홈 화면에서 사용하는 프로젝트 목록입니다.
-# type: personal | team 으로 화면에서 그룹을 나눕니다.
-# 각 그룹 안에서는 최신 작업순으로 정렬해 주세요.
-# personal 항목은 year/month로 연도·월 토글 그룹을 묶습니다 — 기간이 범위(예: 2026.07 – 2026.08)면
-# 더 최근 쪽(끝) 달을 씁니다. 배열이 이미 최신순으로 정렬돼 있어야 토글이 올바르게 묶입니다.
+# type: personal | team 으로 화면에서 그룹을 나눕니다. 각 그룹 안에서는 최신 작업순으로 정렬해 주세요.
+# rank: 1, 2, ... 를 준 personal 항목은 '대표 프로젝트'로 rank 순서대로 강조됩니다.
+#   개수가 홀수면 rank 1이 가로 전체 폭, 짝수면 2열로 고르게 놓입니다.
+# rank가 없는 personal 항목은 '부가 프로젝트' 토글(처음엔 접힘) 안에 category별로 묶입니다.
+#   category 값과 표시 순서·이름은 _data/categories.yml에 있습니다(없거나 모르는 값이면 '기타').
 # details 소제목은 아래 순서·이름으로 통일합니다(해당 내용이 없으면 생략).
 #   문제 정의 → 주요 기능(팀: 담당 업무) → 설계 → 트러블슈팅 → 검증·결과 → 배운 점 → 한계 → 참고
 #   같은 종류가 여러 개면 "설계 — 보안"처럼 ' — ' 뒤에 구분어를 붙입니다(화면에서 흐리게 표시).
+# notice: 요약 아래 작은 안내 한 줄(선택, 예: 데이터 입력 중 · 업데이트 예정).
 # metrics: 운영 지표 칸(선택). items마다 label과 value를 적고, value가 없으면 '수집 중'으로 표시됩니다.
 #   note는 칸 아래 작은 안내 문구입니다(데이터가 채워지면 지우면 됩니다).
 # links 항목에 live: true를 주면 실제 접속 가능한 서비스로 보고 'Live' 배지로 표시합니다.
-# rank가 없는 personal 항목이 4개 이하면 토글 없이 한 줄 카드로 보이고, 5개 이상이면 연도·월 토글로 접힙니다.
-# rank: 1, 2, ... 를 준 personal 항목은 '대표 프로젝트'로 맨 위에 rank 순서대로 강조되고,
-# 연도·월 토글에서는 빠집니다. rank 1은 가로 전체 폭 카드로 그려집니다.
+
+- name: AI 뭐 써? (which-ai)
+  rank: 3
+  subtitle: 목적별 AI 툴 비교 도우미
+  period: "2026.10"
+  type: personal
+  featured: true
+  accent: rose
+  summary: >-
+    "회의록 정리하고 싶은데 뭐 써?"처럼 하고 싶은 일을 고르면, 맞는 AI 툴 2~3개를 이유와 함께
+    비교해 주는 비개발자용 선택 도우미입니다. 같은 엔진으로 개발 단계별 도구를 비교하는
+    개발자용 버전도 함께 운영합니다.
+  notice: 실제 툴 데이터 입력 중 · 업데이트 예정
+  stack: [JavaScript, HTML/CSS, Node.js, GitHub Actions, GitHub Pages]
+  links:
+    - label: 서비스 바로가기
+      icon: fas fa-arrow-up-right-from-square
+      live: true
+      url: https://dlwldp.github.io/which-ai/
+    - label: GitHub
+      icon: fab fa-github
+      url: https://github.com/dlwldP/which-ai
+  details:
+    - heading: 문제 정의
+      items:
+        - AI 툴이 너무 많아 비개발자는 어떤 일에 뭘 써야 하는지, 무료인지, 회사 자료를 넣어도 되는지 판단하기 어려움
+        - 기존 AI 디렉터리는 수천 개를 나열만 해서 오히려 고르기 힘듦 — 목록 대신 목적과 조건으로 2~3개만 골라 비교
+    - heading: 주요 기능
+      items:
+        - 하고 싶은 일 10가지 중 하나를 고르면 추천 카드 2~3개와 대표 추천 이유, 무료·학습 정책·한국어 배지를 바로 비교
+        - 결과 위 조건 칩(무료만·보안 중요·한국어 중요·휴대폰 앱)으로 즉시 다시 추천, 나머지 후보는 접힌 목록에 같은 순서로 보존
+        - 개발자용 버전 — 기획·코딩 에이전트·배포 등 9단계에서 공식 AI 툴과 오픈소스 프로젝트를 섹션별로 비교
+    - heading: 설계 — 규칙 기반 추천
+      items:
+        - 사이트에서 LLM을 호출하지 않고, 목적별 기능 체크리스트 4개 중 지원 개수와 조건으로 점수를 계산해 같은 입력이면 항상 같은 결과
+        - 확인 안 된 값은 "확인 필요"로 표시하고, 보안 조건에서는 학습 정책을 모르는 툴을 추천하지 않음
+    - heading: 설계 — 데이터 신뢰
+      items:
+        - AI는 공식 페이지를 근거로 초안만 쓰고, 사람이 근거 문장을 대조한 뒤에만 실제 데이터로 옮기는 흐름
+        - 출처는 해당 툴의 공식 도메인만 허용하고, 가격·정책마다 출처와 확인 날짜를 남겨 90일이 지나면 "확인 필요" 표시
+    - heading: 검증·결과
+      items:
+        - Node 내장 테스트 러너로 단위 테스트 120개 이상과 데이터 검사를 통과해야만 GitHub Pages에 배포
+        - 매주 월요일 툴 정보 신선도와 링크를 자동 점검해 확인할 목록을 Issue 하나에 모으고, 모두 처리되면 자동으로 닫음
+    - heading: 한계
+      items:
+        - 실제 툴 데이터는 공식 근거를 확인한 순서대로 입력 중이며, 화면은 예시 데이터로 먼저 검증
+        - 비개발자 대상 사용성 테스트는 진행 전
 
 - name: AWS 얼마야? (Awscal)
-  rank: 3
+  rank: 2
   subtitle: 초보자용 AWS 비용 계산기
   period: "2026.10"
-  year: 2026
-  month: 10
   type: personal
   featured: true
   accent: violet
@@ -62,12 +107,10 @@
         - 현재 공식 계산기와 2건 비교, 모두 ±10% 이내 (서울·개인용 기준 개발용 서버 EC2 단독 0.07%, 백엔드 웹앱 EC2 + RDS 1.9% 차이)
 
 - name: KubeLens
-  rank: 2
   subtitle: 자연어로 질의하는 Kubernetes 장애 진단 에이전트
   period: "2026.10"
-  year: 2026
-  month: 10
   type: personal
+  category: cloud
   featured: true
   accent: pink
   summary: >-
@@ -102,9 +145,8 @@
 - name: Subhelp
   subtitle: 구독 관리 iOS 앱
   period: "2026.10"
-  year: 2026
-  month: 10
   type: personal
+  category: mobile
   featured: true
   accent: emerald
   summary: >-
@@ -134,12 +176,10 @@
         - 위젯과 앱 간 데이터 공유를 App Group 컨테이너의 SwiftData로 구현, 변경 시 WidgetCenter로 위젯을 갱신
 
 - name: 보안입찰 RFP 매칭
-  rank: 5
   subtitle: 요구사항 · 제품 스펙 갭분석 자동화
   period: 2026.09
-  year: 2026
-  month: 9
   type: personal
+  category: ai
   featured: true
   accent: cyan
   summary: >-
@@ -170,9 +210,8 @@
 - name: 멀티클라우드 견적 자동화
   subtitle: AWS · Azure · GCP 가격 API 비교 견적
   period: 2026.09
-  year: 2026
-  month: 9
   type: personal
+  category: cloud
   featured: true
   accent: indigo
   summary: >-
@@ -204,8 +243,6 @@
   rank: 1
   subtitle: 증권사 Open API 연동 관심종목 알림 · 자산 대시보드
   period: 2026.08
-  year: 2026
-  month: 8
   type: personal
   featured: true
   accent: amber
@@ -239,8 +276,6 @@
   rank: 4
   subtitle: claims 기반 인프라 배포 승인 게이트
   period: 2026.07 – 2026.08
-  year: 2026
-  month: 8
   type: personal
   featured: true
   accent: emerald
@@ -273,9 +308,8 @@
 - name: 보험 보장 분석 데모
   subtitle: LLM 기반 소명 근거 자동 생성
   period: 2026.02
-  year: 2026
-  month: 2
   type: personal
+  category: ai
   featured: true
   accent: violet
   summary: >-
