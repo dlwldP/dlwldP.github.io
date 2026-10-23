@@ -5,7 +5,7 @@
 
 {% assign project = include.project %}
 
-<article class="prj prj--{{ project.accent | default: 'indigo' }}{% if include.rank %} prj--top{% if include.rank == 1 %} prj--top-1{% endif %}{% endif %}">
+<article class="prj prj--{{ project.accent | default: 'indigo' }}{% if include.rank %} prj--top{% if include.rank == 1 %} prj--top-1{% endif %}{% endif %}{% if include.wide %} prj--wide{% endif %}">
   <div class="prj__head">
     <div class="prj__titles">
       {% if include.rank %}<span class="prj__rank">No.{{ include.rank }}</span>{% endif %}
@@ -37,6 +37,9 @@
   {% endcomment %}
   {% if project.role %}<p class="prj__role">{{ project.role }}</p>{% endif %}
   <p class="prj__summary">{{ project.summary }}</p>
+  {% if project.notice %}
+    <p class="prj__notice"><i class="fas fa-hourglass-half" aria-hidden="true"></i>{{ project.notice }}</p>
+  {% endif %}
 
   {% comment %} 운영 지표(선택) — 값이 하나도 없으면 '수집 중' 상태(점선 테두리)로 그린다 {% endcomment %}
   {% if project.metrics %}
