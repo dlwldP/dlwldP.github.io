@@ -55,7 +55,7 @@ layout: default
       </div>
     {% endif %}
     {% if top1 %}
-      <a class="hero__card-row hero__card-link prj--{{ top1.accent | default: 'indigo' }}" href="#projects">
+      <a class="hero__card-row hero__card-link" href="#projects">
         <p class="hero__card-label">대표 프로젝트 No.1</p>
         <p class="hero__card-value">{{ top1.name }}</p>
         <p class="hero__card-meta">{{ top1.subtitle }}</p>
@@ -310,40 +310,5 @@ layout: default
     }, { passive: true });
     window.addEventListener('resize', update);
     update();
-  })();
-</script>
-
-<script>
-  /* 스크롤 등장 효과 — 화면에 들어올 때 살짝 떠오르며 나타난다.
-     '동작 줄이기' 설정이거나 IntersectionObserver가 없으면 아무것도 하지 않아 내용이 그대로 보인다.
-     인쇄 시에는 CSS(@media print)가 숨김을 무시한다. */
-  (function () {
-    if (!('IntersectionObserver' in window)) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var targets = document.querySelectorAll(
-      '.section__head, .section__lead, .skills, .domains__item, .prj-group, ' +
-      '.prj-grid > .prj, .prj-more, .about__item, .contact-card'
-    );
-    document.documentElement.classList.add('js-reveal');
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var el = e.target;
-        el.classList.add('is-visible');
-        io.unobserve(el);
-        /* 등장이 끝나면 지연을 지워 hover 효과가 늦게 반응하지 않게 */
-        setTimeout(function () { el.style.transitionDelay = ''; }, 900);
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-
-    targets.forEach(function (el) {
-      el.classList.add('reveal');
-      /* 같은 줄의 형제 카드는 조금씩 늦게 — 4개 단위로 반복 */
-      var idx = Array.prototype.indexOf.call(el.parentNode.children, el) % 4;
-      if (idx) el.style.transitionDelay = idx * 70 + 'ms';
-      io.observe(el);
-    });
   })();
 </script>
