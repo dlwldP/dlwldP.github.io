@@ -353,6 +353,7 @@
   color: var(--text-muted-color);
   margin: 0.2rem 0 0;
   word-break: keep-all;
+  text-wrap: balance;
 }
 
 .hero__card-chips {
@@ -1150,6 +1151,10 @@
   color: var(--heading-color);
 }
 
+.prj__metrics--highlights .prj__metrics-value {
+  color: var(--prj-accent);
+}
+
 .prj__metrics-value--empty {
   font-family: inherit;
   font-size: 0.85rem;
@@ -1599,6 +1604,46 @@
 
   .hero__stats strong {
     font-size: 1.55rem;
+  }
+}
+
+/* 휴대폰에서는 제목 옆 기간·링크 칸이 제목 폭을 절반 가까이 잡아먹어
+   'AWS 얼마야? / (Awscal)'처럼 꺾인다 — 기간(왼쪽)·링크(오른쪽)를 제목 아래 한 줄로 */
+@media (max-width: 575px) {
+  .prj__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'titles titles'
+      'period links';
+    grid-template-rows: auto auto;
+    row-gap: 0.75rem;
+    align-items: center;
+  }
+
+  .prj__period {
+    justify-self: start;
+    padding-top: 0;
+  }
+
+  .prj__sub {
+    text-wrap: pretty;
+  }
+
+  /* 지표 칸 3열은 휴대폰에서 라벨이 세 줄로 꺾인다 — '값 | 라벨' 한 줄씩 쌓기 */
+  .prj__metrics-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+
+  .prj__metrics-list li {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .prj__metrics-value {
+    flex: 0 0 3.6rem;
   }
 }
 
