@@ -611,6 +611,7 @@
   .skills__group {
     grid-template-columns: 1fr;
     gap: 0.7rem;
+    align-content: start; /* 같은 줄 옆 칸이 더 높아도 이름·칩이 위에 붙어 있게 */
     background-color: var(--card-bg);
   }
 
@@ -1411,6 +1412,35 @@
   line-height: 1.85;
   color: var(--text-color);
   margin-bottom: 0.45rem;
+}
+
+/* 학력 — 경력 타임라인 아래 한 줄 목록 */
+/* 데스크톱의 '.about__grid .about__subtitle { margin-top: 0 }'보다 우선하도록 한 단계 구체적으로 */
+.about__subtitle--next,
+.about__grid .about__career .about__subtitle--next {
+  margin-top: 2.25rem;
+}
+
+.about__edu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about__edu li {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  word-break: keep-all;
+}
+
+.about__edu strong {
+  color: var(--heading-color);
+  margin-right: 0.3rem;
+}
+
+.about__edu-period {
+  color: var(--text-muted-color);
 }
 
 /* 데스크톱: 왼쪽 경력 타임라인 | 오른쪽 연락처 카드 */
