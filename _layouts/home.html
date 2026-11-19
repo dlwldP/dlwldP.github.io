@@ -7,7 +7,7 @@ layout: default
 <!-- ── Hero ───────────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero__main">
-    <p class="hero__eyebrow">Backend · Cloud Infrastructure</p>
+    <p class="hero__eyebrow">Jiye Lee · Backend · Cloud Infrastructure</p>
     <h1 class="hero__title">
       백엔드부터 배포·운영까지<br>다루는 개발자입니다
     </h1>
@@ -50,7 +50,7 @@ layout: default
       <div class="hero__card-row">
         <p class="hero__card-label">주력 기술</p>
         <ul class="hero__card-chips">
-          {% for g in hero_skills %}{% for item in g.items %}<li>{{ item }}</li>{% endfor %}{% endfor %}
+          {% for g in hero_skills %}{% for item in g.items limit: 4 %}<li>{{ item }}</li>{% endfor %}{% endfor %}
         </ul>
       </div>
     {% endif %}
@@ -216,6 +216,15 @@ layout: default
             </ul>
           </div>
         {% endfor %}
+
+        {% if site.data.education %}
+          <h3 class="about__subtitle about__subtitle--next">학력</h3>
+          <ul class="about__edu">
+            {% for e in site.data.education %}
+              <li><strong>{{ e.school }}</strong> {{ e.major }} {{ e.degree }} · <span class="about__edu-period">{{ e.period }}</span></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </div>
 
       <div class="about__contact">

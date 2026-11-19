@@ -13,7 +13,8 @@ Jekyll + [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) 테마 기�
 | `_data/projects.yml` | 프로젝트 카드 (`rank`: 대표 프로젝트 순서, `category`: 부가 프로젝트 분야, `live: true`: Live 배지, `notice`: 안내 한 줄, `metrics`: 운영 지표) |
 | `_data/categories.yml` | 부가 프로젝트 분야 이름 · 순서 |
 | `_data/career.yml` | 경력 타임라인 (오래된 순으로 작성, 화면에는 최신순) |
-| `_data/skills.yml` | 기술 스택 |
+| `_data/education.yml` | 학력 |
+| `_data/skills.yml` | 기술 스택 (GitHub 프로필 README와 같은 항목 유지) |
 | `_data/domains.yml` | 업무 도메인 |
 | `_config.yml` | 사이트 제목 · 설명 · 연락처 이메일 |
 
