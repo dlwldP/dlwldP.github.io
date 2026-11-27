@@ -1,0 +1,8 @@
+# 홈 화면 '정보 > 기술 글' (연락처 카드 아래). 연재별 최신 글 하나씩, 위에서부터 순서대로 보입니다.
+# series: 연재 이름 · 편수, title: 글 제목(짧게), url: velog 글 주소
+- series: AI 뭐 써? 개발기 · 4편 완결
+  title: 첫 사용자 리뷰 — "그래서 뭘 쓰라는 거예요?"에 답한 한 줄
+  url: https://velog.io/@jiye_1124/AI-%EB%AD%90-%EC%8D%A8-4%ED%8E%B8%EB%A7%88%EC%A7%80%EB%A7%89-%EC%B2%AB-%EC%82%AC%EC%9A%A9%EC%9E%90-%EB%A6%AC%EB%B7%B0-%EA%B7%B8%EB%9E%98%EC%84%9C-%EB%AD%98-%EC%93%B0%EB%9D%BC%EB%8A%94-%EA%B1%B0%EC%98%88%EC%9A%94%EC%97%90-%EB%8B%B5%ED%95%9C-%ED%95%9C-%EC%A4%84
+- series: AWS 얼마야? 개발기 · 4편
+  title: 읽기 쉽게 다듬고, v2 로드맵을 끝내다
+  url: https://velog.io/@jiye_1124/AWS-%EC%96%BC%EB%A7%88%EC%95%BC-4%ED%8E%B8-%EC%9D%BD%EA%B8%B0-%EC%89%BD%EA%B2%8C-%EB%8B%A4%EB%93%AC%EA%B3%A0-v2-%EB%A1%9C%EB%93%9C%EB%A7%B5%EC%9D%84-%EB%81%9D%EB%82%B4%EB%8B%A4
