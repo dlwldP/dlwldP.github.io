@@ -1419,10 +1419,11 @@
   margin-bottom: 0.45rem;
 }
 
-/* 학력 — 경력 타임라인 아래 한 줄 목록 */
+/* 학력·자격 — 경력 타임라인 아래 한 줄 목록 (기술 글은 연락처 카드 아래) */
 /* 데스크톱의 '.about__grid .about__subtitle { margin-top: 0 }'보다 우선하도록 한 단계 구체적으로 */
 .about__subtitle--next,
-.about__grid .about__career .about__subtitle--next {
+.about__grid .about__career .about__subtitle--next,
+.about__grid .about__contact .about__subtitle--next {
   margin-top: 2.25rem;
 }
 
@@ -1525,6 +1526,19 @@
   font-weight: 600;
   color: var(--heading-color);
   overflow-wrap: anywhere;
+}
+
+/* 기술 글 — 제목이 길어 두 줄까지 허용, 한글은 단어 단위로 */
+.contact-card--writing a {
+  align-items: start;
+}
+
+.contact-card--writing .contact-card__value {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  margin-top: 0.15rem;
 }
 
 .contact-card a:hover .contact-card__value {

@@ -225,6 +225,15 @@ layout: default
             {% endfor %}
           </ul>
         {% endif %}
+
+        {% if site.data.certifications %}
+          <h3 class="about__subtitle about__subtitle--next">자격</h3>
+          <ul class="about__edu">
+            {% for c in site.data.certifications %}
+              <li><strong>{{ c.name }}</strong> {{ c.grade }} · <span class="about__edu-period">{{ c.period }}</span></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </div>
 
       <div class="about__contact">
@@ -252,6 +261,21 @@ layout: default
             </a>
           </li>
         </ul>
+
+        {% if site.data.writing %}
+          <h3 class="about__subtitle about__subtitle--next">기술 글</h3>
+          <ul class="contact-card contact-card--writing">
+            {% for w in site.data.writing %}
+              <li>
+                <a href="{{ w.url }}" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-pen-nib" aria-hidden="true"></i>
+                  <span class="contact-card__name">{{ w.series }}</span>
+                  <span class="contact-card__value">{{ w.title }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </div>
     </div>
   </div>
